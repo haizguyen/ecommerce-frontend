@@ -1,0 +1,12 @@
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# Playwright
+playwright-report/
+test-results/
+blob-report/
+
+# OS
+.DS_Store

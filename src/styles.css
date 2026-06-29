@@ -1,0 +1,37 @@
+:root { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+body { margin: 0; background: #f5f6f8; color: #1c1e21; }
+.store {
+  max-width: 420px;
+  margin: 64px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+h1 { font-size: 20px; margin: 0; }
+.stock { font-size: 40px; font-weight: 700; margin: 8px 0 4px; }
+.sku { color: #65676b; font-size: 14px; }
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 8px;
+  background: #1877f2;
+  color: #fff;
+  cursor: pointer;
+}
+button:disabled { background: #9cb4d8; cursor: not-allowed; }
+.status { margin-top: 14px; font-size: 14px; color: #65676b; min-height: 18px; }
+.search { background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+.search input { width: 100%; box-sizing: border-box; padding: 10px 12px; font-size: 15px; border: 1px solid #d0d4d9; border-radius: 8px; }
+.search ul { list-style: none; padding: 0; margin: 12px 0 0; }
+.search li { display: flex; justify-content: space-between; padding: 8px 4px; border-bottom: 1px solid #eef0f3; font-size: 14px; }
+.search li:last-child { border-bottom: 0; }
+.search .empty { color: #65676b; font-size: 13px; margin-top: 10px; }

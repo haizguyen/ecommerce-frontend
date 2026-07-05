@@ -28,6 +28,16 @@
             "development": {
               "optimization": false,
               "sourceMap": true
+            },
+            "mock": {
+              "optimization": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.mock.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -37,6 +47,11 @@
           "options": {
             "buildTarget": "frontend:build:development",
             "port": 4200
+          },
+          "configurations": {
+            "mock": {
+              "buildTarget": "frontend:build:mock"
+            }
           }
         }
       }

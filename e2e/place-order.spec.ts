@@ -21,7 +21,8 @@ for (const SKU of SKUS) {
     const startStock: number = (await startResp.json()).stock;
     expect(startStock).toBeGreaterThan(0);
 
-    await page.goto('/');
+    // The order flow lives on the product detail page in the redesigned UI.
+    await page.goto(`/products/${SKU}`);
 
     // UI should reflect the same starting stock (poll until hydrated).
     await expect

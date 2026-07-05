@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev:mock": "ng serve --configuration mock",
     "build": "ng build",
+    "build:mock": "ng build --configuration mock",
     "lint": "echo \"(add eslint when needed)\" && exit 0",
     "test:ci": "jest --ci",
     "e2e": "playwright test --reporter=html"

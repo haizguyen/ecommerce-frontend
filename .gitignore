@@ -7,6 +7,7 @@ dist/
 playwright-report/
 test-results/
 blob-report/
+e2e-visual/screenshots/
 
 # OS
 .DS_Store

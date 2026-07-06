@@ -9,7 +9,8 @@
     "build:mock": "ng build --configuration mock",
     "lint": "echo \"(add eslint when needed)\" && exit 0",
     "test:ci": "jest --ci",
-    "e2e": "playwright test --reporter=html"
+    "e2e": "playwright test --reporter=html",
+    "test:visual": "playwright test --config playwright.visual.config.ts"
   },
   "private": true,
   "dependencies": {

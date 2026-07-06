@@ -1,0 +1,317 @@
+name: fe-smart-dev
+description: |
+  Use when: Implementing or redesigning a FRONTEND feature in this project
+  (Angular + npm, mock data via `dev:mock`).
+  Triggers: "redesign", "UI", "frontend feature", "update the pages".
+  Input: A UI feature/redesign description in natural language.
+  Does:
+    1. Design clarification: AI asks 3 design questions -> awaits your reply.
+    2. Design & plan: AI loads the attached design skill + Space docs, explores
+       src/, and breaks the work into atomic tasks (each with a check + states).
+    3. Branch & draft PR.
+    4. Implementation: builds each task, type-checks via `npm run build` after
+       every change (this project's `lint` is a stub; Angular type-checks on build).
+    5. Visual verification: Playwright screenshots every page/state on top of
+       `dev:mock`, the agent READS the images and self-corrects the design.
+    6. Validate (`npm run build` + `npm run test:ci`), push, comment PR link.
+  NOT for: Backend work, executing a pre-written plan (use aiko-plan-to-pr).
+
+# Track runs on the Kanban board; a dispatch with no task auto-creates one.
+creates_task: true
+# Interactive gates (clarification + plan approval) require foreground on web.
+interactive: true
+
+nodes:
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 1: DESIGN CLARIFICATION
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: grill-me
+    display:
+      name: Grill Me
+      description: Ask 3 questions to lock down design decisions.
+    prompt: |
+      You are a senior frontend engineer and product designer preparing to
+      implement a UI feature/redesign.
+
+      The user wants to build: $ARGUMENTS
+
+      Quickly scan the codebase structure (framework, routing, component and
+      style conventions, any existing design tokens). Skip node_modules, dist,
+      and .angular.
+
+      Then present EXACTLY 3 targeted, high-value questions to lock down the
+      DESIGN before planning — for example: visual direction / design system,
+      which pages and which states matter (loading / empty / error / edge
+      cases), responsive targets (desktop + mobile), and component-library or
+      token constraints.
+
+      Format as a concise numbered list. Do NOT start planning yet.
+
+  - id: clarification-gate
+    display:
+      name: Clarification Gate
+      description: Wait for the user to answer the design questions.
+    approval:
+      message: "Answer the design questions above so we align on the design before planning."
+      capture_response: true
+    depends_on: [grill-me]
+
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 2: DESIGN & PLAN
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: create-plan
+    display:
+      name: Design & Plan
+      description: Load the design skill, explore src/, break into tasks.
+    prompt: |
+      You are a senior frontend architect turning a UI requirement into an
+      executable plan.
+
+      ## Requirement (as the user wrote it)
+      $ARGUMENTS
+
+      ## User's Clarification Answers
+      $clarification-gate.output
+
+      ## Space Architecture Documents
+      $SPACE_DOCUMENTS
+
+      ## Codebases in this Space
+      $SPACE_CODEBASES
+
+      ## Design skill (IMPORTANT)
+      A design skill is attached to this task and passed automatically (typically
+      `design-taste-frontend`). Invoke it via the Skill tool FIRST to load the
+      visual standards, then base the whole plan on those standards. If no design
+      skill is available, say so and proceed with sensible modern defaults.
+
+      ## Your job
+      1. Use the Task tool with subagent_type="Explore" to map the relevant
+         pages, components, routing and existing style tokens.
+         CRITICAL: skip node_modules, dist, .angular; target src/ only.
+      2. Refine the feature title and write a self-contained Markdown overview of
+         the target design.
+      3. Decompose the work into atomic, sequential, independently verifiable
+         tasks. Each task targets specific files/components.
+      4. For EACH task provide a validation command — prefer `npm run build`
+         (type-check) and `npm run test:ci` (unit) — plus which page(s) to eyeball.
+      5. Explicitly enumerate the UI STATES to verify per page: loading, empty,
+         error, and domain edges (long titles, missing images, out-of-stock,
+         low-stock, empty cart).
+
+      Return ONLY a structured JSON object representing the plan.
+    output_format:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        tasks:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              codebase_name:
+                type: string
+            required: [title, description, codebase_name]
+      required: [title, description, tasks]
+    create_subtasks: true
+    update_parent_task: true
+    output_type: plan
+    depends_on: [clarification-gate]
+    provider: claude
+    model: large
+
+  - id: confirm-plan
+    display:
+      name: Approve Plan
+      description: Review and approve the design plan and sub-tasks.
+    approval:
+      message: "Review the design plan and sub-tasks. Approve to set up the branch and start building."
+    depends_on: [create-plan]
+
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 3: BRANCH & DRAFT PR
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: setup-branch
+    display:
+      name: Setup Branch & PR
+      description: Create a feature branch and bootstrap a draft PR (best-effort).
+    bash: |
+      set -uo pipefail
+
+      PLAN_TITLE=$create-plan.output.title
+      PLAN_DESC=$create-plan.output.description
+
+      BRANCH_NAME="feat/fe-${WORKFLOW_ID:0:8}"
+      echo "Creating branch: $BRANCH_NAME"
+      git checkout -b "$BRANCH_NAME"
+      git commit --allow-empty -m "chore: bootstrap fe feature branch"
+      # Push + PR are best-effort so design iteration isn't blocked without a forge.
+      git push -u origin HEAD || echo "push skipped (branch stays local)"
+
+      if command -v aiko &> /dev/null; then
+        aiko forge pr create --title "$PLAN_TITLE" --base "$BASE_BRANCH" \
+          --body "Draft PR: $PLAN_DESC" --draft || echo "Draft PR creation skipped."
+      elif command -v gh &> /dev/null; then
+        gh pr create --title "$PLAN_TITLE" --base "$BASE_BRANCH" \
+          --body "Draft PR: $PLAN_DESC" --draft || echo "gh PR creation skipped."
+      fi
+    depends_on: [confirm-plan]
+
+  - id: install-deps
+    display:
+      name: Install Dependencies
+      description: Install node_modules (worktrees are fresh checkouts).
+    bash: |
+      set -uo pipefail
+      # Runs execute in an isolated worktree with no node_modules — install it so
+      # build / tests / the visual harness (dev:mock) work. Playwright browsers
+      # are installed at the user level, so this does not re-download them.
+      echo "Installing dependencies (npm ci, falling back to npm install)..."
+      npm ci || npm install
+    depends_on: [setup-branch]
+
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 4: IMPLEMENTATION
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: implement-tasks
+    display:
+      name: Implement Tasks
+      description: Build each task; type-check via `npm run build` after each change.
+    prompt: |
+      You are an expert frontend engineer implementing the approved plan.
+
+      ## Approved Plan
+      $create-plan.output
+
+      ## Design skill (source of truth)
+      Use the design skill attached to this task (via the Skill tool, typically
+      `design-taste-frontend`) as the source of truth for visual standards:
+      spacing, color/typography tokens, component patterns. Do NOT invent ad-hoc
+      styles when the skill defines a standard.
+
+      ## Instructions
+      1. Implement each task in sequence. Reuse existing components and design
+         tokens; keep the result cohesive.
+      2. Cover the UI states from the plan (loading / empty / error / edge cases)
+         and make layouts responsive (desktop + mobile).
+      3. After editing ANY file, IMMEDIATELY run `npm run build` to catch type and
+         template errors, and fix before moving on. (This project's `lint` is a
+         stub; Angular type-checks during the build.)
+      4. Add or adjust unit tests where they add value; run `npm run test:ci` for
+         the areas you changed.
+      5. Never proceed to the next task with a broken build.
+    depends_on: [install-deps]
+    provider: claude
+    model: medium
+
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 5: VISUAL VERIFICATION (FE-SPECIFIC)
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: visual-verify
+    display:
+      name: Visual Verify
+      description: Screenshot pages/states on dev:mock, review the images, self-correct.
+    prompt: |
+      Review the redesign VISUALLY — type-check and lint cannot judge how a UI
+      actually looks. A Playwright visual harness already exists in this repo:
+        - config: playwright.visual.config.ts  (auto-starts `npm run dev:mock`;
+          mock data, no backend needed)
+        - spec:   e2e-visual/redesign.screenshot.spec.ts  (starter: captures /,
+          /products, /cart at desktop + mobile)
+
+      ## Steps
+      1. Extend `e2e-visual/redesign.screenshot.spec.ts` to cover every page you
+         changed AND the key STATES from the plan (empty cart, out-of-stock /
+         low-stock, long titles, missing images, loading, error). Drive states via
+         the mock configuration or UI interaction. Fix selectors to match the
+         redesign (the product-detail capture is skipped until its selector is set).
+      2. Run the harness, writing captures into the run artifacts:
+           VISUAL_OUT="$ARTIFACTS_DIR/screenshots" npm run test:visual
+      3. READ the generated PNGs in $ARTIFACTS_DIR/screenshots with the Read tool
+         (you can view images). Critically assess them against the design skill's
+         standards: layout, spacing, typography, color, visual hierarchy,
+         responsiveness, and every state.
+      4. If anything looks wrong or off-standard, fix the code and re-run steps
+         2–3. Iterate up to 3 times.
+      5. Write `$ARTIFACTS_DIR/visual-review.md` summarizing what you captured,
+         what you fixed, and any remaining concerns.
+    depends_on: [implement-tasks]
+    provider: claude
+    model: medium
+
+  # ═══════════════════════════════════════════════════════════════
+  # PHASE 6: VALIDATE & FINALIZE
+  # ═══════════════════════════════════════════════════════════════
+
+  - id: validate-and-finalize
+    display:
+      name: Validate & Finalize
+      description: Build + unit tests, push, comment PR link back on the ticket.
+    bash: |
+      set -uo pipefail
+
+      PLAN_TITLE=$create-plan.output.title
+      TARGET_TICKET="$ARGUMENTS"
+      TARGET_BASE_BRANCH="$BASE_BRANCH"
+
+      # Type-check via production build (Angular has no standalone type-check script).
+      echo "Building (type-check)..."
+      BUILD_STATUS="✅ Pass"
+      BUILD_OUT=$(npm run build 2>&1) || { BUILD_STATUS="❌ Fail"; }
+
+      # Unit tests (jest).
+      echo "Running unit tests..."
+      TEST_STATUS="✅ Pass"
+      TEST_OUT=$(npm run test:ci 2>&1) || { TEST_STATUS="❌ Fail"; }
+
+      CHANGED_FILES=$(git diff --name-only "$TARGET_BASE_BRANCH" HEAD 2>/dev/null || echo "None")
+
+      mkdir -p "$ARTIFACTS_DIR"
+      OVERALL="ALL_PASS"
+      [ "$BUILD_STATUS" = "✅ Pass" ] && [ "$TEST_STATUS" = "✅ Pass" ] || OVERALL="BLOCKED"
+      {
+        echo "# Validation Results"
+        echo ""
+        echo "**Workflow ID**: $WORKFLOW_ID"
+        echo "**Status**: $OVERALL"
+        echo ""
+        echo "| Check | Result |"
+        echo "|-------|--------|"
+        echo "| Build (type-check) | $BUILD_STATUS |"
+        echo "| Unit tests | $TEST_STATUS |"
+        echo "| Visual review | see visual-review.md + screenshots/ |"
+        echo ""
+        echo "## Files changed"
+        echo "$CHANGED_FILES" | sed 's/^/- /'
+      } > "$ARTIFACTS_DIR/validation.md"
+
+      echo "Pushing changes..."
+      git add .
+      git commit -m "feat: $PLAN_TITLE" || echo "No changes to commit"
+      git push origin HEAD || echo "push skipped (branch stays local)"
+
+      if command -v aiko &> /dev/null; then
+        if [[ "$TARGET_TICKET" =~ http || "$TARGET_TICKET" =~ ^[0-9]+$ ]]; then
+          aiko forge comment "$TARGET_TICKET" \
+            "## Aiko FE Validation
+      - Build (type-check): $BUILD_STATUS
+      - Unit tests: $TEST_STATUS
+      - Visual review artifacts attached to the run.
+
+      _fe-smart-dev_" || echo "Forge comment skipped."
+        fi
+      fi
+      echo "Workflow complete ($OVERALL)."
+    depends_on: [visual-verify]

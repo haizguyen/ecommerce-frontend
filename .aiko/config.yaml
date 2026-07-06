@@ -1,0 +1,9 @@
+# Project config for the Angular storefront.
+#
+# fe-smart-dev is this repo's FE-tailored workflow (design clarify -> plan ->
+# build -> visual verify -> validate). Make it the default workflow for new
+# "Task" intents in this project. The web "+ New" modal resolves this
+# per-project via `GET /api/config?codebaseId=`; Plan/Investigate keep the
+# global defaults (aiko-plan-breakdown / aiko-assist).
+workflows:
+  defaultWorkflowTask: fe-smart-dev

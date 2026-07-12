@@ -244,7 +244,7 @@ F1 (step 3: search flow).
 
 ---
 
-## Story S9 — CategoriesSection
+## Story S9 — CategoriesSection ✅
 
 **Plan refs:** `plan/sections.md`
 
@@ -266,13 +266,13 @@ Extract the category tiles from `src/app/pages/home.component.ts` into `src/app/
 F1 (step 4: category browsing), F3 (loading), F4 (error with retry), F5 (empty state).
 
 ### Tests
-1. **Loading:** Mock service returns observable that never completes → 5 skeleton tiles render.
-2. **Error:** Mock service returns `throwError(() => new Error('fail'))` → error message + Retry button render.
-3. **Empty:** Mock service returns `of([])` → "No categories available right now." renders.
-4. **Data:** Mock service returns `of(categories)` → 5 category tiles render with correct names and counts.
-5. Click Retry button → service method called again.
-6. Click category tile → router navigates to `/products?category=<slug>`.
-7. Component uses `OnPush` change detection.
+1. ✅ **Loading:** Mock service returns observable that never completes → 5 skeleton tiles render.
+2. ✅ **Error:** Mock service returns `throwError(() => new Error('fail'))` → error message + Retry button render.
+3. ✅ **Empty:** Mock service returns `of([])` → "No categories available right now." renders.
+4. ✅ **Data:** Mock service returns `of(categories)` → 5 category tiles render with correct names and counts.
+5. ✅ Click Retry button → service method called again.
+6. ✅ Click category tile → router navigates to `/products?category=<slug>`.
+7. ✅ Component uses `OnPush` change detection.
 
 ---
 

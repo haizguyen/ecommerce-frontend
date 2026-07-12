@@ -13,7 +13,7 @@
 | S6 — Product Card Enhancements | ✅ DONE | Discount badge, wishlist heart toggle, quick-view overlay, original-price strikethrough, 3 new IO signals added; 99 tests pass |
 | S7 — Hero Section | ✅ DONE | Extracted to src/app/sections/hero-section.component.ts; inline hero removed from HomeComponent. |
 | S8 — Search Section | ✅ DONE | Created src/app/sections/search-section.component.ts with role="search", autofocus, SVG icon, Enter navigation. |
-| S9 — Category Grid Section | ⏳ PENDING | |
+| S9 — Category Grid Section | ✅ DONE | CategoriesSection extracted; inline categories removed from HomeComponent; loading/error/empty states; 103 tests pass |
 | S10 — Featured Section | ⏳ PENDING | |
 | S11 — Best Sellers Section | ⏳ PENDING | |
 | S12 — Flash Sale Section | ⏳ PENDING | |
@@ -31,3 +31,7 @@ Covers: FR-7.1 (mock files), FR-7.2 (product discount updates), FR-7.3 (flash sa
 ## S3 Mock Backend Interceptor — DONE
 Files: src/app/mock/mock-backend.interceptor.ts (updated), src/mocks/mock-backend.util.spec.ts (new)
 Covers: FR-interceptor (5 new route handlers: best-sellers, flash-sale, testimonials, brands, newsletter)
+
+## S9 Category Grid Section — DONE
+Files: src/app/sections/categories-section.component.ts (new), src/app/sections/categories-section.util.spec.ts (new), src/app/pages/home.component.ts (modified)
+Covers: F1.4 (category browsing), F3 (loading), F4 (error with retry), F5 (empty state description)

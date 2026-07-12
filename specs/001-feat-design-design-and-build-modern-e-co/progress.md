@@ -7,7 +7,7 @@
 |---|---|---|
 | S1 — Data Models & Types | ✅ DONE | Product discount fields + 4 new interfaces in models.ts, types.ts; type-instantiation tests pass |
 | S2 — Mock Data Fixtures | ✅ DONE | testimonials.mock.ts, brands.mock.ts, products.mock.ts updates (discount + bestseller + FLASH_SALE), index.ts barrel, fixtures.util.spec.ts |
-| S3 — Mock Backend Routes | ⏳ PENDING | |
+| S3 — Mock Backend Routes | ✅ DONE | 5 new route handlers; mock-backend.util.spec.ts |
 | S4 — Service Layer | ⏳ PENDING | |
 | S5 — Wishlist Service | ⏳ PENDING | |
 | S6 — Product Card Enhancements | ⏳ PENDING | |
@@ -27,3 +27,7 @@
 ## S2 Mock Data Fixtures — DONE
 Files: src/mocks/testimonials.mock.ts (new), src/mocks/brands.mock.ts (new), src/mocks/products.mock.ts (updated), src/mocks/index.ts (updated), src/mocks/fixtures.util.spec.ts (new)
 Covers: FR-7.1 (mock files), FR-7.2 (product discount updates), FR-7.3 (flash sale fixture), FR-7.4 (barrel exports)
+
+## S3 Mock Backend Interceptor — DONE
+Files: src/app/mock/mock-backend.interceptor.ts (updated), src/mocks/mock-backend.util.spec.ts (new)
+Covers: FR-interceptor (5 new route handlers: best-sellers, flash-sale, testimonials, brands, newsletter)

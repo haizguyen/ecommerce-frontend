@@ -65,7 +65,7 @@ Provides data for: S11 (FlashSaleSection), S14 (BrandSection), S15 (Testimonials
 
 ---
 
-## Story S3 — Mock Backend Interceptor
+## Story S3 — Mock Backend Interceptor ✅
 
 **Plan refs:** `plan/mock-backend.md`
 

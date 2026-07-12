@@ -16,7 +16,7 @@
 | S9 — Category Grid Section | ✅ DONE | CategoriesSection extracted; inline categories removed from HomeComponent; loading/error/empty states; 103 tests pass |
 | S10 — Featured Section | ✅ DONE | |
 | S11 — Best Sellers Section | ✅ DONE | |
-| S12 — Flash Sale Section | ⏳ PENDING | |
+| S12 — Flash Sale Section | ✅ DONE | |
 | S13 — Recommendations Section | ⏳ PENDING | |
 | S14 — Brand Section | ⏳ PENDING | |
 | S15 — Testimonials Section | ⏳ PENDING | |
@@ -43,3 +43,7 @@ Covers: F1 (curated featured grid, top 4 by rating), F3 (loading skeletons), F4 
 ## S11 Best Sellers Section — DONE
 Files: src/app/sections/best-sellers-section.component.ts (new), src/app/sections/best-sellers-section.util.spec.ts (new)
 Covers: F1 (4-column best sellers grid), F3 (4 skeleton cards loading), F4 (error with retry), F5 (empty state message)
+
+## S12 Flash Sale Section — DONE
+Files: src/app/sections/flash-sale-section.component.ts (new), src/app/sections/flash-sale-section.util.ts (new), src/app/sections/flash-sale-section.util.spec.ts (new)
+Covers: F1 (4-column flash sale grid with sale container), F3 (skeleton timer + 4 skeleton cards), F4 (error with retry), F5 (empty/null states), countdown timer (formatCountdown), ended state

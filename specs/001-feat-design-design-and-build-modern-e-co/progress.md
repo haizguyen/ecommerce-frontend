@@ -14,8 +14,8 @@
 | S7 — Hero Section | ✅ DONE | Extracted to src/app/sections/hero-section.component.ts; inline hero removed from HomeComponent. |
 | S8 — Search Section | ✅ DONE | Created src/app/sections/search-section.component.ts with role="search", autofocus, SVG icon, Enter navigation. |
 | S9 — Category Grid Section | ✅ DONE | CategoriesSection extracted; inline categories removed from HomeComponent; loading/error/empty states; 103 tests pass |
-| S10 — Featured Section | ⏳ PENDING | |
-| S11 — Best Sellers Section | ⏳ PENDING | |
+| S10 — Featured Section | ✅ DONE | |
+| S11 — Best Sellers Section | ✅ DONE | |
 | S12 — Flash Sale Section | ⏳ PENDING | |
 | S13 — Recommendations Section | ⏳ PENDING | |
 | S14 — Brand Section | ⏳ PENDING | |
@@ -35,3 +35,11 @@ Covers: FR-interceptor (5 new route handlers: best-sellers, flash-sale, testimon
 ## S9 Category Grid Section — DONE
 Files: src/app/sections/categories-section.component.ts (new), src/app/sections/categories-section.util.spec.ts (new), src/app/pages/home.component.ts (modified)
 Covers: F1.4 (category browsing), F3 (loading), F4 (error with retry), F5 (empty state description)
+
+## S10 Featured Section — DONE
+Files: src/app/sections/featured-section.component.ts (new), src/app/sections/featured-section.util.spec.ts (new), src/app/pages/home.component.ts (modified)
+Covers: F1 (curated featured grid, top 4 by rating), F3 (loading skeletons), F4 (error with retry), F5 (empty state message)
+
+## S11 Best Sellers Section — DONE
+Files: src/app/sections/best-sellers-section.component.ts (new), src/app/sections/best-sellers-section.util.spec.ts (new)
+Covers: F1 (4-column best sellers grid), F3 (4 skeleton cards loading), F4 (error with retry), F5 (empty state message)

@@ -8,17 +8,17 @@
 | S1 — Data Models & Types | ✅ DONE | Product discount fields + 4 new interfaces in models.ts, types.ts; type-instantiation tests pass |
 | S2 — Mock Data Fixtures | ✅ DONE | testimonials.mock.ts, brands.mock.ts, products.mock.ts updates (discount + bestseller + FLASH_SALE), index.ts barrel, fixtures.util.spec.ts |
 | S3 — Mock Backend Routes | ✅ DONE | 5 new route handlers; mock-backend.util.spec.ts |
-| S4 — Service Layer | ⏳ PENDING | |
-| S5 — Wishlist Service | ⏳ PENDING | |
-| S6 — Product Card Enhancements | ⏳ PENDING | |
-| S7 — Featured Section | ⏳ PENDING | |
-| S8 — Hero Section | ⏳ PENDING | |
+| S4 — Service Layer | ✅ DONE | Already implemented — 5 new methods in catalog.service.ts:46-68, with fixture-based contract tests in catalog-service.util.spec.ts |
+| S5 — Wishlist Service | ✅ DONE | WishlistService created at src/app/data/wishlist.service.ts with signal-based toggle/isWishlisted; 6 contract tests pass (99 total) |
+| S6 — Product Card Enhancements | ✅ DONE | Discount badge, wishlist heart toggle, quick-view overlay, original-price strikethrough, 3 new IO signals added; 99 tests pass |
+| S7 — Hero Section | ✅ DONE | Extracted to src/app/sections/hero-section.component.ts; inline hero removed from HomeComponent. |
+| S8 — Search Section | ✅ DONE | Created src/app/sections/search-section.component.ts with role="search", autofocus, SVG icon, Enter navigation. |
 | S9 — Category Grid Section | ⏳ PENDING | |
-| S10 — Best Sellers Section | ⏳ PENDING | |
-| S11 — Flash Sale Section | ⏳ PENDING | |
-| S12 — Value Props Section | ⏳ PENDING | |
-| S13 — Featured Brands Section | ⏳ PENDING | |
-| S14 — Brand Strip | ⏳ PENDING | |
+| S10 — Featured Section | ⏳ PENDING | |
+| S11 — Best Sellers Section | ⏳ PENDING | |
+| S12 — Flash Sale Section | ⏳ PENDING | |
+| S13 — Recommendations Section | ⏳ PENDING | |
+| S14 — Brand Section | ⏳ PENDING | |
 | S15 — Testimonials Section | ⏳ PENDING | |
 | S16 — Newsletter Section | ⏳ PENDING | |
 | S17 — Home Layout Integration | ⏳ PENDING | |

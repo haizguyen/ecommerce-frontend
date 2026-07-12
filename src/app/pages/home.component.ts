@@ -1,145 +1,83 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { CatalogService } from '../data/catalog.service';
 import { CartService } from '../data/cart.service';
+import { WishlistService } from '../data/wishlist.service';
 import type { Product } from '../data/models';
-import { ProductCardComponent } from '../shared/product-card.component';
+
 import { HeroSectionComponent } from '../sections/hero-section.component';
+import { SearchSectionComponent } from '../sections/search-section.component';
 import { CategoriesSectionComponent } from '../sections/categories-section.component';
+import { FeaturedSectionComponent } from '../sections/featured-section.component';
+import { BestSellersSectionComponent } from '../sections/best-sellers-section.component';
+import { FlashSaleSectionComponent } from '../sections/flash-sale-section.component';
+import { RecommendationsSectionComponent } from '../sections/recommendations-section.component';
+import { BrandSectionComponent } from '../sections/brand-section.component';
+import { TestimonialsSectionComponent } from '../sections/testimonials-section.component';
+import { NewsletterSectionComponent } from '../sections/newsletter-section.component';
 
 /**
- * Home / landing page: hero, value props, category tiles and a curated
- * "featured" grid (top-rated products). All data comes from CatalogService.
+ * Home / landing page composed entirely of reusable section components.
+ *
+ * All 10 sections are arranged in DOM order. Event bindings wire product-card
+ * actions to the appropriate services and router.
  */
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, ProductCardComponent, HeroSectionComponent, CategoriesSectionComponent],
+  imports: [
+    HeroSectionComponent,
+    SearchSectionComponent,
+    CategoriesSectionComponent,
+    FeaturedSectionComponent,
+    BestSellersSectionComponent,
+    FlashSaleSectionComponent,
+    RecommendationsSectionComponent,
+    BrandSectionComponent,
+    TestimonialsSectionComponent,
+    NewsletterSectionComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-hero-section></app-hero-section>
-
-    <!-- Value strip -->
-    <section class="container values">
-      <div class="value" *ngFor="let v of values">
-        <div class="v-ico">{{ v.icon }}</div>
-        <div>
-          <div class="v-title">{{ v.title }}</div>
-          <div class="v-sub muted">{{ v.sub }}</div>
-        </div>
-      </div>
-    </section>
-
+    <app-search-section></app-search-section>
     <app-categories-section></app-categories-section>
-
-    <!-- Featured -->
-    <section class="container section pt0">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Editor's picks</span>
-          <h2>Featured this week</h2>
-        </div>
-        <a class="link-arrow" routerLink="/products">See everything →</a>
-      </div>
-
-      <div class="grid" *ngIf="!loading(); else skeletons">
-        <app-product-card
-          *ngFor="let p of featured()"
-          [product]="p"
-          (add)="cart.add($event)"></app-product-card>
-      </div>
-      <ng-template #skeletons>
-        <div class="grid">
-          <div class="sk skeleton" *ngFor="let i of [1, 2, 3, 4]"></div>
-        </div>
-      </ng-template>
-    </section>
+    <app-featured-section
+      (add)="onAdd($event)"
+      (toggleWishlist)="onToggleWishlist($event)"
+      (quickView)="onQuickView($event)"
+    ></app-featured-section>
+    <app-best-sellers-section
+      (add)="onAdd($event)"
+      (toggleWishlist)="onToggleWishlist($event)"
+      (quickView)="onQuickView($event)"
+    ></app-best-sellers-section>
+    <app-flash-sale-section
+      (add)="onAdd($event)"
+      (toggleWishlist)="onToggleWishlist($event)"
+      (quickView)="onQuickView($event)"
+    ></app-flash-sale-section>
+    <app-recommendations-section></app-recommendations-section>
+    <app-brand-section></app-brand-section>
+    <app-testimonials-section></app-testimonials-section>
+    <app-newsletter-section></app-newsletter-section>
   `,
-  styles: [
-    `
-      /* Value strip */
-      .values {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-        padding-block: 28px;
-      }
-      .value {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .v-ico {
-        display: grid;
-        place-items: center;
-        width: 42px;
-        height: 42px;
-        border-radius: var(--r-md);
-        background: var(--surface-2);
-        border: 1px solid var(--line);
-        font-size: 18px;
-      }
-      .v-title {
-        font-weight: 620;
-        font-size: 14px;
-      }
-      .v-sub {
-        font-size: 13px;
-      }
-
-      /* Grid */
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-      }
-      .pt0 {
-        padding-top: 0;
-      }
-      .sk {
-        aspect-ratio: 3 / 4;
-      }
-
-      @media (max-width: 980px) {
-        .values {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 560px) {
-        .grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-    `
-  ]
+  styles: [``]
 })
 export class HomeComponent {
-  private readonly catalog = inject(CatalogService);
-  readonly cart = inject(CartService);
+  private readonly router = inject(Router);
+  private readonly cart = inject(CartService);
+  private readonly wishlist = inject(WishlistService);
 
-  readonly featured = signal<Product[]>([]);
-  readonly loading = signal(true);
+  onAdd(product: Product): void {
+    this.cart.add(product);
+  }
 
-  readonly values = [
-    { icon: '🚚', title: 'Free shipping', sub: 'On orders over $99' },
-    { icon: '↩︎', title: '30-day returns', sub: 'No-questions refunds' },
-    { icon: '🛡️', title: '2-year warranty', sub: 'On every product' },
-    { icon: '⚡', title: 'Fast dispatch', sub: 'Ships within 24h' }
-  ];
+  onToggleWishlist(product: Product): void {
+    this.wishlist.toggle(product.sku);
+  }
 
-  constructor() {
-    this.catalog.getProducts().subscribe({
-      next: (products) => {
-        const featured = [...products].sort((a, b) => b.rating - a.rating).slice(0, 4);
-        this.featured.set(featured);
-        this.loading.set(false);
-      },
-      error: () => this.loading.set(false)
-    });
+  onQuickView(product: Product): void {
+    this.router.navigate(['/products', product.sku]);
   }
 }

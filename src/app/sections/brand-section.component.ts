@@ -40,7 +40,8 @@ import { getInitials } from './brand-section.util';
           <p>Something went wrong loading this section.</p>
           <button class="btn btn-outline" (click)="retry()">Retry</button>
         </div>
-      } @else if (brands(); as list) {
+      } @else {
+        @if (brands().length > 0) {
         <div class="section-head">
           <div>
             <span class="eyebrow">Partners</span>
@@ -48,7 +49,7 @@ import { getInitials } from './brand-section.util';
           </div>
         </div>
         <div class="brand-row">
-          @for (b of list; track b.id) {
+          @for (b of brands(); track b.id) {
             <div class="brand-tile">
               @if (b.logoUrl && !imgFailed().has(b.id)) {
                 <img [src]="b.logoUrl" [alt]="b.name" (error)="onImgError(b.id)" />
@@ -58,6 +59,7 @@ import { getInitials } from './brand-section.util';
             </div>
           }
         </div>
+      }
       }
     </section>
   `,

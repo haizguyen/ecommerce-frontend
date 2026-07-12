@@ -47,7 +47,8 @@ import { formatCountdown } from './flash-sale-section.util';
           <p class="muted">Something went wrong loading this section.</p>
           <button class="btn btn-outline" (click)="retry()">Retry</button>
         </div>
-      } @else if (flashSale(); as sale) {
+      } @else {
+        @if (flashSale(); as sale) {
         <div class="flash-wrap card">
           <div class="flash-head">
             <div>
@@ -76,6 +77,7 @@ import { formatCountdown } from './flash-sale-section.util';
             </div>
           }
         </div>
+        }
       }
     </section>
   `,

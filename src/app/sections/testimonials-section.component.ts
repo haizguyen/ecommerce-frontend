@@ -50,7 +50,8 @@ import { getInitials } from './testimonials-section.util';
           <p>Something went wrong loading this section.</p>
           <button class="btn btn-outline" (click)="retry()">Retry</button>
         </div>
-      } @else if (testimonials(); as list) {
+      } @else {
+        @if (testimonials().length > 0) {
         <div class="section-head">
           <div>
             <span class="eyebrow">Real reviews</span>
@@ -58,7 +59,7 @@ import { getInitials } from './testimonials-section.util';
           </div>
         </div>
         <div class="test-grid">
-          @for (t of list; track t.id) {
+          @for (t of testimonials(); track t.id) {
             <div class="test-card card">
               <div class="test-head">
                 @if (t.avatarUrl && !imgFailed().has(t.id)) {
@@ -85,6 +86,7 @@ import { getInitials } from './testimonials-section.util';
             </div>
           }
         </div>
+      }
       }
     </section>
   `,

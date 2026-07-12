@@ -47,7 +47,6 @@ import { CatalogService } from '../data/catalog.service';
           <form
             class="newsletter-form"
             (ngSubmit)="onSubmit()"
-            #newsletterForm="ngForm"
           >
             <div class="newsletter-field">
               <input

@@ -19,7 +19,7 @@
 | S12 — Flash Sale Section | ✅ DONE | |
 | S13 — Recommendations Section | ✅ DONE | |
 | S14 — Brand Section | ✅ DONE | |
-| S15 — Testimonials Section | ⏳ PENDING | |
+| S15 — Testimonials Section | ✅ DONE | |
 | S16 — Newsletter Section | ⏳ PENDING | |
 | S17 — Home Layout Integration | ⏳ PENDING | |
 | S18 — Footer & Accessibility | ⏳ PENDING | |
@@ -51,6 +51,10 @@ Covers: F1 (recommendations placeholder), 4 skeleton cards in rec-wrap, overlay 
 ## S14 Brand Section — DONE
 Files: src/app/sections/brand-section.component.ts (new), src/app/sections/brand-section.util.ts (new), src/app/sections/brand-section.util.spec.ts (new)
 Covers: F1 (brand logo tiles), F3 (6 skeleton circles), F4 (error with retry), F5 (empty → hidden), image fallback with initials
+
+## S15 Testimonials Section — DONE
+Files: src/app/sections/testimonials-section.component.ts (new), src/app/sections/testimonials-section.util.ts (new), src/app/sections/testimonials-section.util.spec.ts (new)
+Covers: F1 (testimonials grid), F3 (3 skeleton cards), F4 (error with retry), F5 (empty → hidden), avatar image with initials fallback, star ratings
 
 ## S12 Flash Sale Section — DONE
 Files: src/app/sections/recommendations-section.component.ts (new)

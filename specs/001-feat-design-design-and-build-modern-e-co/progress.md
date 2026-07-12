@@ -22,7 +22,7 @@
 | S15 — Testimonials Section | ✅ DONE | |
 | S16 — Newsletter Section | ✅ DONE | |
 | S17 — Home Layout Integration | ✅ DONE | All 10 section components wired with add/toggleWishlist/quickView events. Fixed pre-existing `@else if (signal(); as alias)` bugs in brand, flash-sale, testimonials sections (Angular 17 restriction). Fixed #newsletterForm="ngForm" template ref. |
-| S18 — Footer & Accessibility | ⏳ PENDING | |
+| S18 — Footer & Accessibility | ✅ DONE | |
 
 ## S2 Mock Data Fixtures — DONE
 Files: src/mocks/testimonials.mock.ts (new), src/mocks/brands.mock.ts (new), src/mocks/products.mock.ts (updated), src/mocks/index.ts (updated), src/mocks/fixtures.util.spec.ts (new)

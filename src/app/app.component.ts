@@ -14,6 +14,7 @@ import { CartService } from './data/cart.service';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
+    <a href="#content" class="skip-link">Skip to main content</a>
     <app-header></app-header>
     <main id="content">
       <router-outlet></router-outlet>
@@ -29,6 +30,22 @@ import { CartService } from './data/cart.service';
       }
       main {
         flex: 1 0 auto;
+      }
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 8px;
+        z-index: 10000;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 8px 16px;
+        border-radius: var(--r-md);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .skip-link:focus {
+        top: 8px;
       }
     `
   ]

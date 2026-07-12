@@ -17,7 +17,7 @@
 | S10 — Featured Section | ✅ DONE | |
 | S11 — Best Sellers Section | ✅ DONE | |
 | S12 — Flash Sale Section | ✅ DONE | |
-| S13 — Recommendations Section | ⏳ PENDING | |
+| S13 — Recommendations Section | ✅ DONE | |
 | S14 — Brand Section | ⏳ PENDING | |
 | S15 — Testimonials Section | ⏳ PENDING | |
 | S16 — Newsletter Section | ⏳ PENDING | |
@@ -43,6 +43,10 @@ Covers: F1 (curated featured grid, top 4 by rating), F3 (loading skeletons), F4 
 ## S11 Best Sellers Section — DONE
 Files: src/app/sections/best-sellers-section.component.ts (new), src/app/sections/best-sellers-section.util.spec.ts (new)
 Covers: F1 (4-column best sellers grid), F3 (4 skeleton cards loading), F4 (error with retry), F5 (empty state message)
+
+## S13 Recommendations Section — DONE
+Files: src/app/sections/recommendations-section.component.ts (new)
+Covers: F1 (recommendations placeholder), 4 skeleton cards in rec-wrap, overlay pill with blur backdrop, static heading
 
 ## S12 Flash Sale Section — DONE
 Files: src/app/sections/flash-sale-section.component.ts (new), src/app/sections/flash-sale-section.util.ts (new), src/app/sections/flash-sale-section.util.spec.ts (new)

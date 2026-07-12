@@ -3,11 +3,14 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap } from 'rxjs/operators';
 
 import {
+  BRANDS,
   CART,
   CATEGORIES,
   EMPTY_CART,
+  FLASH_SALE,
   ORDERS,
   PRODUCTS,
+  TESTIMONIALS,
   USER_PROFILE,
   decrementStock,
   searchInventory,
@@ -140,6 +143,51 @@ export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
   // --- User profile: GET /api/user/profile ---
   if (method === 'GET' && path === '/api/user/profile') {
     return ok(USER_PROFILE);
+  }
+
+  // --- Best sellers: GET /api/products/best-sellers ---
+  if (method === 'GET' && path === '/api/products/best-sellers') {
+    if (param('fail') === 'true') {
+      return fail(500, 'Internal server error', req.url);
+    }
+    const bestSellers = PRODUCTS.filter((p) => p.tags.includes('bestseller'));
+    return ok(bestSellers);
+  }
+
+  // --- Flash sale: GET /api/products/flash-sale ---
+  if (method === 'GET' && path === '/api/products/flash-sale') {
+    if (param('fail') === 'true') {
+      return fail(500, 'Internal server error', req.url);
+    }
+    return ok(param('state') === 'ended' ? null : FLASH_SALE);
+  }
+
+  // --- Testimonials: GET /api/testimonials ---
+  if (method === 'GET' && path === '/api/testimonials') {
+    if (param('fail') === 'true') {
+      return fail(500, 'Internal server error', req.url);
+    }
+    return ok(TESTIMONIALS);
+  }
+
+  // --- Brands: GET /api/brands ---
+  if (method === 'GET' && path === '/api/brands') {
+    if (param('fail') === 'true') {
+      return fail(500, 'Internal server error', req.url);
+    }
+    return ok(BRANDS);
+  }
+
+  // --- Newsletter subscribe: POST /api/newsletter/subscribe ---
+  if (method === 'POST' && path === '/api/newsletter/subscribe') {
+    if (param('fail') === 'true') {
+      return fail(500, 'Internal server error', req.url);
+    }
+    const subscribeBody = (req.body ?? {}) as { email?: string };
+    if (!subscribeBody.email || subscribeBody.email.trim() === '') {
+      return fail(400, 'Email is required', req.url);
+    }
+    return ok({ success: true });
   }
 
   // Unmatched API route → 404, so gaps surface loudly instead of hitting a real API.

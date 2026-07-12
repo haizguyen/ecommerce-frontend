@@ -1,4 +1,4 @@
-import type { Product } from './types';
+import type { FlashSale, Product } from './types';
 
 /**
  * Product catalogue fixtures.
@@ -26,7 +26,10 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/sku-001/400/400',
     stock: 42,
     rating: 4.6,
-    tags: ['bestseller', 'wireless']
+    tags: ['bestseller', 'wireless'],
+    originalPrice: 249.99,
+    discountPercentage: 20,
+    saleEndsAt: null
   },
   {
     sku: 'SKU-002',
@@ -38,7 +41,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/sku-002/400/400',
     stock: 8,
     rating: 4.8,
-    tags: ['new']
+    tags: ['new', 'bestseller']
   },
   {
     sku: 'SKU-003',
@@ -53,7 +56,10 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://picsum.photos/seed/sku-003/400/400',
     stock: 15,
     rating: 4.3,
-    tags: ['premium']
+    tags: ['premium'],
+    originalPrice: 1799.00,
+    discountPercentage: 17,
+    saleEndsAt: '2026-07-20T23:59:00.000Z'
   },
   {
     sku: 'SKU-004',
@@ -92,3 +98,63 @@ export const PRODUCTS: Product[] = [
     tags: ['low-stock']
   }
 ];
+
+/**
+ * Flash sale fixture for the homepage FlashSaleSection.
+ *
+ * Features 3 deeply-discounted products. The sale ends on 2026-07-14T23:59:00.000Z
+ * (2 days from the spec date), giving the countdown timer ~48 hours to tick down.
+ * Pass `?state=ended` to the mock interceptor to test the ended state.
+ */
+export const FLASH_SALE: FlashSale = {
+  id: 'flash-jul-2026',
+  name: 'July Flash Sale',
+  endsAt: '2026-07-14T23:59:00.000Z',
+  products: [
+    {
+      sku: 'FS-SKU-001',
+      name: 'Aurora Wireless Headphones — Flash Edition',
+      description: 'Limited-time flash deal on our bestselling over-ear headphones with ANC.',
+      price: 149.99,
+      currency: 'AUD',
+      categoryId: 'audio',
+      imageUrl: 'https://picsum.photos/seed/flash-sku-001/400/400',
+      stock: 20,
+      rating: 4.6,
+      tags: ['bestseller', 'flash-sale'],
+      originalPrice: 249.99,
+      discountPercentage: 40,
+      saleEndsAt: '2026-07-14T23:59:00.000Z',
+    },
+    {
+      sku: 'FS-SKU-002',
+      name: 'Nimbus Mechanical Keyboard — Flash Edition',
+      description: 'Hot-swappable 75% mechanical keyboard at an unbeatable flash price.',
+      price: 79.99,
+      currency: 'AUD',
+      categoryId: 'peripherals',
+      imageUrl: 'https://picsum.photos/seed/flash-sku-002/400/400',
+      stock: 10,
+      rating: 4.8,
+      tags: ['flash-sale'],
+      originalPrice: 129.0,
+      discountPercentage: 38,
+      saleEndsAt: '2026-07-14T23:59:00.000Z',
+    },
+    {
+      sku: 'FS-SKU-003',
+      name: 'Vertex Ergonomic Mouse — Flash Edition',
+      description: 'Vertical ergonomic mouse designed to reduce wrist strain — flash pricing.',
+      price: 49.99,
+      currency: 'AUD',
+      categoryId: 'peripherals',
+      imageUrl: 'https://picsum.photos/seed/flash-sku-003/400/400',
+      stock: 15,
+      rating: 4.0,
+      tags: ['flash-sale'],
+      originalPrice: 79.95,
+      discountPercentage: 37,
+      saleEndsAt: '2026-07-14T23:59:00.000Z',
+    },
+  ],
+};

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import type { Category, InventoryItem, Product } from './models';
+import type { Brand, Category, FlashSale, InventoryItem, NewsletterResponse, Product, Testimonial } from './models';
 
 /**
  * Catalog data-access layer.
@@ -40,5 +40,30 @@ export class CatalogService {
   searchInventory(query: string): Observable<InventoryItem[]> {
     const params = new HttpParams().set('q', query);
     return this.http.get<InventoryItem[]>('/api/inventory/search', { params });
+  }
+
+  /** Products tagged as best sellers. */
+  getBestSellers(): Observable<Product[]> {
+    return this.http.get<Product[]>('/api/products/best-sellers');
+  }
+
+  /** Current flash sale with discounted products, or null if none active. */
+  getFlashSale(): Observable<FlashSale | null> {
+    return this.http.get<FlashSale | null>('/api/products/flash-sale');
+  }
+
+  /** Customer testimonials for the homepage. */
+  getTestimonials(): Observable<Testimonial[]> {
+    return this.http.get<Testimonial[]>('/api/testimonials');
+  }
+
+  /** Brand logos for the brand strip. */
+  getBrands(): Observable<Brand[]> {
+    return this.http.get<Brand[]>('/api/brands');
+  }
+
+  /** Subscribe an email address to the newsletter. */
+  subscribeToNewsletter(email: string): Observable<NewsletterResponse> {
+    return this.http.post<NewsletterResponse>('/api/newsletter/subscribe', { email });
   }
 }

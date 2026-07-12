@@ -1,0 +1,2459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Store — Homepage Mockup</title>
+<style>
+/* ===================================================================
+   Aurora Store — design tokens (from styles.css)
+   =================================================================== */
+:root {
+  --bg: #f6f6f3;
+  --surface: #ffffff;
+  --surface-2: #faf9f7;
+  --ink: #17181c;
+  --ink-2: #565a63;
+  --ink-3: #8a8f98;
+  --line: #e8e7e2;
+  --line-strong: #d7d6cf;
+
+  --accent: #4f46e5;
+  --accent-strong: #4035c9;
+  --accent-soft: #eef0ff;
+  --on-accent: #ffffff;
+
+  --success: #197a4d;
+  --success-soft: #e6f4ec;
+  --warn: #9a5b06;
+  --warn-soft: #fbf0dd;
+  --danger: #bd362c;
+  --danger-soft: #fbeae8;
+  --sale: #d6482f;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --r-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(20, 22, 28, 0.05);
+  --shadow-sm: 0 2px 8px rgba(20, 22, 28, 0.06);
+  --shadow-md: 0 8px 24px rgba(20, 22, 28, 0.08);
+  --shadow-lg: 0 18px 48px rgba(20, 22, 28, 0.12);
+
+  --container: 1200px;
+  --gutter: 24px;
+  --header-h: 68px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+p { margin: 0; }
+
+button { font-family: inherit; cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ---------- Layout primitives ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: 56px; }
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.muted { color: var(--ink-2); }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.section-head h2 {
+  font-size: clamp(22px, 2.4vw, 30px);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap var(--dur) var(--ease);
+}
+.link-arrow:hover { gap: 10px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--accent);
+  --btn-fg: var(--on-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--accent-strong);
+  box-shadow: var(--shadow-sm);
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+  background: var(--accent);
+}
+
+.btn-lg { padding: 15px 28px; font-size: 15px; }
+
+.btn-outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-outline:hover {
+  background: var(--surface-2);
+  border-color: var(--ink-3);
+  box-shadow: none;
+}
+
+.btn-sale {
+  --btn-bg: var(--sale);
+  --btn-fg: #fff;
+}
+.btn-sale:hover {
+  background: #be3922;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+}
+.badge-sale {
+  background: var(--sale);
+  color: #fff;
+  border-color: transparent;
+}
+.badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border-color: transparent;
+}
+.badge-success {
+  background: var(--success-soft);
+  color: var(--success);
+  border-color: transparent;
+}
+.badge-warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-color: transparent;
+}
+.badge-danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: transparent;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+/* ---------- Form controls ---------- */
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.input::placeholder { color: var(--ink-3); }
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.input-danger {
+  border-color: var(--danger);
+}
+.input-danger:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+}
+
+/* ---------- Skeleton ---------- */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #ecebe6;
+  border-radius: var(--r-md);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* ---------- Section error / empty ---------- */
+.section-error {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.section-error p {
+  color: var(--ink-2);
+  margin-bottom: 16px;
+}
+.section-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-3);
+}
+
+/* ---------- Header ---------- */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.bar {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 720;
+  font-size: 19px;
+  letter-spacing: -0.03em;
+}
+.mark { color: var(--accent); font-size: 16px; }
+.nav { display: flex; gap: 6px; }
+.nav a {
+  padding: 8px 12px;
+  border-radius: var(--r-pill);
+  font-weight: 550;
+  font-size: 14px;
+  color: var(--ink-2);
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.nav a:hover { color: var(--ink); background: var(--surface-2); }
+.nav a.active { color: var(--ink); background: var(--surface-2); }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: radial-gradient(120% 120% at 85% 10%, #eef0ff 0%, transparent 55%), var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.hero-in {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  padding-block: 72px;
+}
+.hero-copy h1 {
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.03;
+  margin: 14px 0 18px;
+}
+.lede { font-size: 17px; max-width: 460px; }
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  margin: 28px 0 22px;
+  flex-wrap: wrap;
+}
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.trust .dot { color: var(--ink-3); }
+
+.hero-art {
+  position: relative;
+  height: 340px;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(6px);
+  opacity: 0.9;
+}
+.b1 {
+  width: 260px; height: 260px;
+  right: 20px; top: 10px;
+  background: radial-gradient(circle at 30% 30%, #c7ccff, #8b93f5);
+}
+.b2 {
+  width: 170px; height: 170px;
+  left: 30px; bottom: 0;
+  background: radial-gradient(circle at 30% 30%, #ffe0c2, #ffb27a);
+}
+.glass {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 150px; height: 150px;
+  display: grid;
+  place-items: center;
+  font-size: 60px;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(8px);
+}
+
+/* ---------- Value strip ---------- */
+.values {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding-block: 28px;
+}
+.value {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.v-ico {
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-size: 18px;
+}
+.v-title { font-weight: 620; font-size: 14px; }
+.v-sub { font-size: 13px; }
+
+/* ---------- Search ---------- */
+.search-section {
+  padding-block: 40px;
+}
+.search-wrap {
+  max-width: 640px;
+  margin-inline: auto;
+  position: relative;
+}
+.search-wrap .ico {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+.search-input-lg {
+  width: 100%;
+  padding: 16px 20px 16px 52px;
+  font-size: 18px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.search-input-lg::placeholder { color: var(--ink-3); }
+.search-input-lg:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ---------- Categories ---------- */
+.cats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.cat-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 22px 18px;
+  min-height: 118px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.cat-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+.cat-name { font-weight: 620; font-size: 16px; }
+.cat-go {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  color: var(--accent);
+  transition: transform var(--dur) var(--ease);
+}
+.cat-tile:hover .cat-go { transform: translateX(4px); }
+
+/* ---------- Product grid ---------- */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ---------- Product Card ---------- */
+.pc {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.pc:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--line-strong);
+}
+.media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--ease);
+}
+.pc:hover .media img { transform: scale(1.04); }
+.ph {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #efeee9, #e3e2dc);
+  color: var(--ink-3);
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: 0.04em;
+}
+
+/* Card internal */
+.tag-row {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  padding: 0;
+  z-index: 2;
+  transition: background var(--dur) var(--ease);
+}
+.wishlist-btn:hover { background: rgba(255, 255, 255, 1); }
+.wishlist-btn svg {
+  width: 18px;
+  height: 18px;
+}
+.quickview-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+  z-index: 3;
+}
+.media:hover .quickview-overlay { opacity: 1; }
+.quickview-btn {
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--dur) var(--ease);
+}
+.quickview-btn:hover { box-shadow: var(--shadow-md); }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px 18px;
+}
+.cat-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.prod-name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
+}
+.price-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.price-curr {
+  font-size: 18px;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+}
+.price-old {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+.add-btn {
+  padding: 9px 16px;
+}
+
+/* ---------- Product card skeleton ---------- */
+.sk-card {
+  aspect-ratio: 3 / 4;
+}
+
+/* ---------- Flash sale ---------- */
+.flash-wrap {
+  border: 2px solid var(--sale);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--danger-soft) 0%, var(--surface) 40%);
+  padding: 32px;
+}
+.flash-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+.countdown {
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--sale);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.countdown-ended {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+}
+.sk-timer {
+  height: 36px;
+  width: 180px;
+  border-radius: var(--r-md);
+}
+
+/* ---------- Category skeleton ---------- */
+.sk-cat {
+  min-height: 118px;
+  border-radius: var(--r-lg);
+}
+
+/* ---------- Brand section ---------- */
+.brand-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.brand-tile {
+  width: 120px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  overflow: hidden;
+}
+.brand-tile:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--line-strong);
+}
+.brand-tile img {
+  max-height: 48px;
+  object-fit: contain;
+}
+.brand-init {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink-3);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #efeee9, #e3e2dc);
+}
+.sk-brand {
+  width: 120px;
+  height: 80px;
+  border-radius: var(--r-lg);
+}
+
+/* ---------- Testimonials ---------- */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.test-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.test-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.test-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.test-avatar-init {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-3);
+  background: linear-gradient(135deg, #efeee9, #e3e2dc);
+}
+.test-quote {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.test-author {
+  font-size: 14px;
+  font-weight: 600;
+}
+.test-title {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.sk-test {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+}
+.sk-test-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  flex-shrink: 0;
+}
+.sk-test-line {
+  height: 14px;
+  border-radius: var(--r-sm);
+}
+.sk-test-line.wide { width: 85%; }
+.sk-test-line.med { width: 60%; }
+.sk-test-line.narrow { width: 40%; }
+
+/* ---------- Star rating ---------- */
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.stars-track { color: #dcdbd4; }
+.stars-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #f5a623;
+}
+.star-value {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-left: 6px;
+}
+
+/* ---------- Recommendations overlay ---------- */
+.rec-wrap {
+  position: relative;
+}
+.rec-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  backdrop-filter: blur(2px);
+  border-radius: var(--r-lg);
+}
+.rec-pill {
+  background: var(--surface);
+  padding: 12px 24px;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--ink-2);
+}
+
+/* ---------- Newsletter ---------- */
+.newsletter {
+  background: var(--accent-soft);
+  padding-block: 72px;
+  text-align: center;
+}
+.newsletter-in {
+  max-width: 520px;
+  margin-inline: auto;
+}
+.newsletter h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.newsletter .subtitle {
+  color: var(--ink-2);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+.news-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.news-form input {
+  max-width: 300px;
+  flex: 1;
+}
+.news-error {
+  font-size: 13px;
+  color: var(--danger);
+  margin-top: 10px;
+}
+.news-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.news-success svg {
+  width: 48px;
+  height: 48px;
+  color: var(--success);
+}
+.news-success p {
+  font-size: 16px;
+  font-weight: 550;
+}
+
+/* ---------- Footer ---------- */
+.ftr {
+  margin-top: 72px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.ftr-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-block: 56px 40px;
+}
+.ftr-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 720;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.ftr-brand-col p {
+  max-width: 320px;
+  font-size: 14px;
+}
+.social-row {
+  display: flex;
+  gap: 12px;
+  margin-block: 16px;
+}
+.social-link {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.social-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.social-link svg {
+  width: 20px;
+  height: 20px;
+}
+.ftr-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ftr-col h4 {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.ftr-col a {
+  font-size: 14px;
+  color: var(--ink-2);
+  width: fit-content;
+  transition: color var(--dur) var(--ease);
+}
+.ftr-col a:hover { color: var(--accent); }
+.strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.pays {
+  display: flex;
+  gap: 8px;
+}
+.pays span {
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* ---------- State label tags ---------- */
+.state-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--r-pill);
+  margin-left: 12px;
+  vertical-align: middle;
+}
+.state-loading { background: var(--warn-soft); color: var(--warn); }
+.state-error { background: var(--danger-soft); color: var(--danger); }
+.state-empty { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--line); }
+.state-idle { background: var(--success-soft); color: var(--success); }
+.state-ended { background: #eee; color: #888; }
+.state-submitting { background: var(--accent-soft); color: var(--accent-strong); }
+.state-success { background: var(--success-soft); color: var(--success); }
+
+/* ---------- State demo toggles ---------- */
+.demo-bar {
+  --demo-bg: #2a2b30;
+  background: var(--demo-bg);
+  color: #ccc;
+  padding: 10px 0;
+  position: sticky;
+  top: var(--header-h);
+  z-index: 49;
+  font-size: 13px;
+  border-bottom: 1px solid #444;
+}
+.demo-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.demo-bar select {
+  background: #3a3b40;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-family: inherit;
+}
+.demo-bar label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+.demo-bar .demo-sel-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Demo section wrapper ---------- */
+.demo-section {
+  border-bottom: 2px dashed var(--line-strong);
+  position: relative;
+}
+.demo-section:last-child { border-bottom: none; }
+.demo-section-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  border-bottom-left-radius: var(--r-sm);
+  z-index: 10;
+}
+
+/* ---------- Section hidden (display:none demo) ---------- */
+.hidden-state { display: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .hero-in { grid-template-columns: 1fr; }
+  .hero-art { display: none; }
+  .values { grid-template-columns: repeat(2, 1fr); }
+  .cats { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .test-grid { grid-template-columns: repeat(2, 1fr); }
+  .ftr-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .news-form { flex-direction: column; align-items: center; }
+  .news-form input { max-width: 100%; }
+}
+@media (max-width: 720px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .test-grid { grid-template-columns: 1fr; }
+  .nav { display: none; }
+}
+@media (max-width: 560px) {
+  .cats { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: 1fr; }
+  .values { grid-template-columns: 1fr; }
+  .brand-row { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 8px; }
+  .ftr-grid { grid-template-columns: 1fr; }
+  .strip { flex-direction: column; align-items: flex-start; }
+  .hero-in { padding-block: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- DEMO CONTROLS                                                    -->
+<!-- ================================================================ -->
+<div class="demo-bar">
+  <div class="container">
+    <span style="font-weight:600;color:#fff;font-size:13px;">&#9654; State demo:</span>
+
+    <label class="demo-sel-group">
+      Categories:
+      <select onchange="switchState('categories',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Featured:
+      <select onchange="switchState('featured',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Best Sellers:
+      <select onchange="switchState('bestsellers',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Flash Sale:
+      <select onchange="switchState('flashsale',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty</option>
+        <option value="ended">Ended</option>
+        <option value="hidden">Hidden (null)</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Brands:
+      <select onchange="switchState('brands',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty (hidden)</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Testimonials:
+      <select onchange="switchState('testimonials',this.value)">
+        <option value="idle">Idle (data)</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error</option>
+        <option value="empty">Empty (hidden)</option>
+      </select>
+    </label>
+
+    <label class="demo-sel-group">
+      Newsletter:
+      <select onchange="switchState('newsletter',this.value)">
+        <option value="idle">Idle</option>
+        <option value="submitting">Submitting</option>
+        <option value="validation-error">Validation error</option>
+        <option value="server-error">Server error</option>
+        <option value="success">Success</option>
+      </select>
+    </label>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- HEADER (always present)                                          -->
+<!-- ================================================================ -->
+<header class="hdr">
+  <div class="container bar">
+    <a class="brand" href="#" aria-label="Aurora home">
+      <span class="mark" aria-hidden="true">&#9670;</span>
+      <span class="word">Aurora</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#" class="active">Home</a>
+      <a href="#">Shop</a>
+    </nav>
+    <form class="search" role="search" style="position:relative;flex:1;max-width:460px;margin-inline:auto;">
+      <svg class="ico" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--ink-3);pointer-events:none;" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 21l-4.3-4.3M11 19a8 8 0 100-16 8 8 0 000 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input class="search-input" type="search" placeholder="Search products..." aria-label="Search products" style="width:100%;padding:10px 16px 10px 40px;font-size:14px;font-family:inherit;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-pill);">
+    </form>
+    <div class="actions">
+      <a class="cart" href="#" aria-label="Cart" style="position:relative;display:grid;place-items:center;width:42px;height:42px;border-radius:var(--r-pill);color:var(--ink);">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;">
+          <path d="M6 6h15l-1.5 9h-12z M6 6L5 3H2 M9 20a1 1 0 11-2 0 1 1 0 012 0z M19 20a1 1 0 11-2 0 1 1 0 012 0z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="count" style="position:absolute;top:2px;right:2px;min-width:18px;height:18px;padding:0 5px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;background:var(--accent);border:2px solid var(--surface);border-radius:var(--r-pill);">3</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ================================================================ -->
+<!-- 1. HERO SECTION (always present, no states)                      -->
+<!-- ================================================================ -->
+<section class="hero" aria-label="Hero">
+  <div class="container hero-in">
+    <div class="hero-copy">
+      <span class="eyebrow">New season &middot; 2026</span>
+      <h1>Gear that earns its place on your desk.</h1>
+      <p class="lede muted">
+        Audio, peripherals and displays chosen for how they feel every day &mdash; not just how
+        they spec. Free shipping over $99.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-lg" href="#">Shop the catalogue</a>
+        <a class="btn btn-lg btn-outline" href="#">Explore audio</a>
+      </div>
+      <div class="trust">
+        <span>&#9733; 4.6 average rating</span>
+        <span class="dot">&middot;</span>
+        <span>30-day returns</span>
+        <span class="dot">&middot;</span>
+        <span>2-year warranty</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="glass">&#9670;</div>
+    </div>
+  </div>
+</section>
+
+<!-- Value strip -->
+<section class="container values" aria-label="Value propositions">
+  <div class="value">
+    <div class="v-ico">&#128666;</div>
+    <div>
+      <div class="v-title">Free shipping</div>
+      <div class="v-sub muted">On orders over $99</div>
+    </div>
+  </div>
+  <div class="value">
+    <div class="v-ico">&#8617;&#65038;</div>
+    <div>
+      <div class="v-title">30-day returns</div>
+      <div class="v-sub muted">No-questions refunds</div>
+    </div>
+  </div>
+  <div class="value">
+    <div class="v-ico">&#128737;&#65039;</div>
+    <div>
+      <div class="v-title">2-year warranty</div>
+      <div class="v-sub muted">On every product</div>
+    </div>
+  </div>
+  <div class="value">
+    <div class="v-ico">&#9889;</div>
+    <div>
+      <div class="v-title">Fast dispatch</div>
+      <div class="v-sub muted">Ships within 24h</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 2. SEARCH SECTION (always present)                               -->
+<!-- ================================================================ -->
+<section class="search-section container" aria-label="Search">
+  <div class="search-wrap">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 21l-4.3-4.3M11 19a8 8 0 100-16 8 8 0 000 16z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <input class="search-input-lg" type="search" placeholder="Search 100+ products..." aria-label="Search products" autofocus>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 3. CATEGORIES SECTION                                            -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-categories">
+  <span class="demo-section-label">CategoriesSection</span>
+  <section class="container section" aria-label="Product categories">
+
+    <!-- Idle state -->
+    <div id="categories-idle">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Browse <span class="state-tag state-idle">Idle</span></span>
+          <h2>Shop by category</h2>
+        </div>
+        <a class="link-arrow" href="#">All products &rarr;</a>
+      </div>
+      <div class="cats">
+        <a class="cat-tile" href="#">
+          <div class="cat-name">Audio</div>
+          <div class="cat-count muted">2 products</div>
+          <span class="cat-go">&rarr;</span>
+        </a>
+        <a class="cat-tile" href="#">
+          <div class="cat-name">Peripherals</div>
+          <div class="cat-count muted">2 products</div>
+          <span class="cat-go">&rarr;</span>
+        </a>
+        <a class="cat-tile" href="#">
+          <div class="cat-name">Displays</div>
+          <div class="cat-count muted">1 product</div>
+          <span class="cat-go">&rarr;</span>
+        </a>
+        <a class="cat-tile" href="#">
+          <div class="cat-name">Accessories</div>
+          <div class="cat-count muted">1 product</div>
+          <span class="cat-go">&rarr;</span>
+        </a>
+        <a class="cat-tile" href="#">
+          <div class="cat-name">Wearables</div>
+          <div class="cat-count muted">0 products</div>
+          <span class="cat-go">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="categories-loading" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Browse <span class="state-tag state-loading">Loading</span></span>
+          <h2>Shop by category</h2>
+        </div>
+        <a class="link-arrow" href="#">All products &rarr;</a>
+      </div>
+      <div class="cats">
+        <div class="skeleton sk-cat"></div>
+        <div class="skeleton sk-cat"></div>
+        <div class="skeleton sk-cat"></div>
+        <div class="skeleton sk-cat"></div>
+        <div class="skeleton sk-cat"></div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="categories-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Browse <span class="state-tag state-error">Error</span></span>
+          <h2>Shop by category</h2>
+        </div>
+        <a class="link-arrow" href="#">All products &rarr;</a>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('categories','loading');setTimeout(function(){switchState('categories','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="categories-empty" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Browse <span class="state-tag state-empty">Empty</span></span>
+          <h2>Shop by category</h2>
+        </div>
+        <a class="link-arrow" href="#">All products &rarr;</a>
+      </div>
+      <div class="section-empty">
+        <p>No categories available right now.</p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. FEATURED SECTION                                              -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-featured">
+  <span class="demo-section-label">FeaturedSection</span>
+  <section class="container section" aria-labelledby="feat-title">
+
+    <!-- Idle state -->
+    <div id="featured-idle">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Editor's picks <span class="state-tag state-idle">Idle</span></span>
+          <h2 id="feat-title">Featured this week</h2>
+        </div>
+        <a class="link-arrow" href="#">See everything &rarr;</a>
+      </div>
+      <div class="grid-4">
+        <!-- Card 1 — with discount -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Aurora Wireless Headphones">
+            <img src="https://picsum.photos/seed/sku-001/400/400" alt="Aurora Wireless Headphones" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-sale">-20%</span>
+              <span class="badge badge-accent">New</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add Aurora Wireless Headphones to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn" aria-label="Quick view Aurora Wireless Headphones">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">audio</div>
+            <h3 class="prod-name"><a href="#">Aurora Wireless Headphones</a></h3>
+            <div class="stars" role="img" aria-label="4.6 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:92%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$199.99</span>
+              <span class="price-old">$249.99</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 — no discount -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Nimbus Mechanical Keyboard">
+            <img src="https://picsum.photos/seed/sku-002/400/400" alt="Nimbus Mechanical Keyboard" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-accent">New</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add Nimbus Mechanical Keyboard to wishlist" style="color:var(--accent);">
+              <svg viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn" aria-label="Quick view Nimbus Mechanical Keyboard">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">peripherals</div>
+            <h3 class="prod-name"><a href="#">Nimbus Mechanical Keyboard</a></h3>
+            <div class="stars" role="img" aria-label="4.8 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:96%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$129.00</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 — long name, discount -->
+        <article class="pc">
+          <a class="media" href="#">
+            <img src="https://picsum.photos/seed/sku-003/400/400" alt="" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-sale">-17%</span>
+              <span class="badge">Premium</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">displays</div>
+            <h3 class="prod-name"><a href="#">Professional-Grade Ultra-Wide Curved Gaming Monitor with Adaptive Sync, HDR1000 Certification and a Fully Adjustable Ergonomic Aluminium Stand</a></h3>
+            <div class="stars" role="img" aria-label="4.3 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:86%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$1,499.95</span>
+              <span class="price-old">$1,799.00</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 — no image, eco -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Eco Bamboo Desk Mat">
+            <div class="ph" aria-hidden="true">EB</div>
+            <div class="tag-row">
+              <span class="badge badge-accent">New</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add Eco Bamboo Desk Mat to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn" aria-label="Quick view Eco Bamboo Desk Mat">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">accessories</div>
+            <h3 class="prod-name"><a href="#">Eco Bamboo Desk Mat</a></h3>
+            <div class="stars" role="img" aria-label="4.1 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:82%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$34.50</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="featured-loading" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Editor's picks <span class="state-tag state-loading">Loading</span></span>
+          <h2>Featured this week</h2>
+        </div>
+        <a class="link-arrow" href="#">See everything &rarr;</a>
+      </div>
+      <div class="grid-4">
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="featured-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Editor's picks <span class="state-tag state-error">Error</span></span>
+          <h2>Featured this week</h2>
+        </div>
+        <a class="link-arrow" href="#">See everything &rarr;</a>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('featured','loading');setTimeout(function(){switchState('featured','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="featured-empty" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Editor's picks <span class="state-tag state-empty">Empty</span></span>
+          <h2>Featured this week</h2>
+        </div>
+        <a class="link-arrow" href="#">See everything &rarr;</a>
+      </div>
+      <div class="section-empty">
+        <p>Nothing to feature this week &mdash; check back soon.</p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. BEST SELLERS SECTION                                          -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-bestsellers">
+  <span class="demo-section-label">BestSellersSection</span>
+  <section class="container section" aria-labelledby="bs-title">
+
+    <!-- Idle state -->
+    <div id="bestsellers-idle">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Trending <span class="state-tag state-idle">Idle</span></span>
+          <h2 id="bs-title">Best sellers</h2>
+        </div>
+        <a class="link-arrow" href="#">Shop all &rarr;</a>
+      </div>
+      <div class="grid-4">
+        <!-- Card 1 — sold out -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Halcyon Studio Microphone">
+            <img src="https://picsum.photos/seed/sku-005/400/400" alt="" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-sale">-20%</span>
+              <span class="badge badge-danger">Sold out</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">audio</div>
+            <h3 class="prod-name"><a href="#">Halcyon Studio Microphone</a></h3>
+            <div class="stars" role="img" aria-label="4.7 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:94%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$249.00</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button" disabled>Sold out</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 — wishlisted -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Aurora Wireless Headphones">
+            <img src="https://picsum.photos/seed/sku-001/400/400" alt="" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-sale">-20%</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Remove from wishlist" style="color:var(--accent);">
+              <svg viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">audio</div>
+            <h3 class="prod-name"><a href="#">Aurora Wireless Headphones</a></h3>
+            <div class="stars" role="img" aria-label="4.6 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:92%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$199.99</span>
+              <span class="price-old">$249.99</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 — low stock -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Vertex Ergonomic Mouse">
+            <img src="https://picsum.photos/seed/sku-006/400/400" alt="" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-warn">Low stock</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">peripherals</div>
+            <h3 class="prod-name"><a href="#">Vertex Ergonomic Mouse</a></h3>
+            <div class="stars" role="img" aria-label="4.0 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:80%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$79.95</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 — keyboard -->
+        <article class="pc">
+          <a class="media" href="#" aria-label="Nimbus Mechanical Keyboard">
+            <img src="https://picsum.photos/seed/sku-002/400/400" alt="" loading="lazy">
+            <div class="tag-row">
+              <span class="badge badge-accent">New</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </button>
+            <div class="quickview-overlay">
+              <button class="quickview-btn">Quick view</button>
+            </div>
+          </a>
+          <div class="body">
+            <div class="cat-label">peripherals</div>
+            <h3 class="prod-name"><a href="#">Nimbus Mechanical Keyboard</a></h3>
+            <div class="stars" role="img" aria-label="4.8 out of 5">
+              <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="stars-fill" style="width:96%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <div class="price-area">
+              <span class="price-curr">$129.00</span>
+            </div>
+            <div class="foot">
+              <div style="flex:1;"></div>
+              <button class="btn add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="bestsellers-loading" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Trending <span class="state-tag state-loading">Loading</span></span>
+          <h2>Best sellers</h2>
+        </div>
+        <a class="link-arrow" href="#">Shop all &rarr;</a>
+      </div>
+      <div class="grid-4">
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="bestsellers-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Trending <span class="state-tag state-error">Error</span></span>
+          <h2>Best sellers</h2>
+        </div>
+        <a class="link-arrow" href="#">Shop all &rarr;</a>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('bestsellers','loading');setTimeout(function(){switchState('bestsellers','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="bestsellers-empty" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Trending <span class="state-tag state-empty">Empty</span></span>
+          <h2>Best sellers</h2>
+        </div>
+        <a class="link-arrow" href="#">Shop all &rarr;</a>
+      </div>
+      <div class="section-empty">
+        <p>Top sellers coming soon &mdash; check back later.</p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 6. FLASH SALE SECTION                                            -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-flashsale">
+  <span class="demo-section-label">FlashSaleSection</span>
+  <section class="container section" aria-labelledby="flash-title">
+
+    <!-- Idle state -->
+    <div id="flashsale-idle">
+      <div class="flash-wrap card">
+        <div class="flash-head">
+          <div>
+            <span class="eyebrow">Limited time <span class="state-tag state-idle">Idle</span></span>
+            <h2 id="flash-title">Flash sale</h2>
+          </div>
+          <div class="countdown" aria-live="polite" aria-atomic="true">23:45:12</div>
+        </div>
+        <div class="grid-4">
+          <article class="pc">
+            <a class="media" href="#">
+              <img src="https://picsum.photos/seed/flash1/400/400" alt="" loading="lazy">
+              <div class="tag-row">
+                <span class="badge badge-sale">-40%</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <div class="quickview-overlay">
+                <button class="quickview-btn">Quick view</button>
+              </div>
+            </a>
+            <div class="body">
+              <div class="cat-label">audio</div>
+              <h3 class="prod-name"><a href="#">Aurora Wireless Headphones</a></h3>
+              <div class="stars" role="img" aria-label="4.6 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:92%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <div class="price-area">
+                <span class="price-curr">$119.99</span>
+                <span class="price-old">$199.99</span>
+              </div>
+              <div class="foot">
+                <div style="flex:1;"></div>
+                <button class="btn btn-sale add-btn" type="button">Add</button>
+              </div>
+            </div>
+          </article>
+          <article class="pc">
+            <a class="media" href="#">
+              <img src="https://picsum.photos/seed/flash2/400/400" alt="" loading="lazy">
+              <div class="tag-row">
+                <span class="badge badge-sale">-35%</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <div class="quickview-overlay">
+                <button class="quickview-btn">Quick view</button>
+              </div>
+            </a>
+            <div class="body">
+              <div class="cat-label">peripherals</div>
+              <h3 class="prod-name"><a href="#">Nimbus Mechanical Keyboard</a></h3>
+              <div class="stars" role="img" aria-label="4.8 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:96%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <div class="price-area">
+                <span class="price-curr">$83.85</span>
+                <span class="price-old">$129.00</span>
+              </div>
+              <div class="foot">
+                <div style="flex:1;"></div>
+                <button class="btn btn-sale add-btn" type="button">Add</button>
+              </div>
+            </div>
+          </article>
+          <article class="pc">
+            <a class="media" href="#">
+              <img src="https://picsum.photos/seed/flash3/400/400" alt="" loading="lazy">
+              <div class="tag-row">
+                <span class="badge badge-sale">-50%</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <div class="quickview-overlay">
+                <button class="quickview-btn">Quick view</button>
+              </div>
+            </a>
+            <div class="body">
+              <div class="cat-label">accessories</div>
+              <h3 class="prod-name"><a href="#">Eco Bamboo Desk Mat</a></h3>
+              <div class="stars" role="img" aria-label="4.1 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:82%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <div class="price-area">
+                <span class="price-curr">$17.25</span>
+                <span class="price-old">$34.50</span>
+              </div>
+              <div class="foot">
+                <div style="flex:1;"></div>
+                <button class="btn btn-sale add-btn" type="button">Add</button>
+              </div>
+            </div>
+          </article>
+          <article class="pc">
+            <a class="media" href="#">
+              <img src="https://picsum.photos/seed/flash4/400/400" alt="" loading="lazy">
+              <div class="tag-row">
+                <span class="badge badge-sale">-30%</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+              <div class="quickview-overlay">
+                <button class="quickview-btn">Quick view</button>
+              </div>
+            </a>
+            <div class="body">
+              <div class="cat-label">peripherals</div>
+              <h3 class="prod-name"><a href="#">Vertex Ergonomic Mouse</a></h3>
+              <div class="stars" role="img" aria-label="4.0 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:80%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <div class="price-area">
+                <span class="price-curr">$55.97</span>
+                <span class="price-old">$79.95</span>
+              </div>
+              <div class="foot">
+                <div style="flex:1;"></div>
+                <button class="btn btn-sale add-btn" type="button">Add</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="flashsale-loading" style="display:none;">
+      <div class="flash-wrap card">
+        <div class="flash-head">
+          <div>
+            <span class="eyebrow">Limited time <span class="state-tag state-loading">Loading</span></span>
+            <h2>Flash sale</h2>
+          </div>
+          <div class="skeleton sk-timer"></div>
+        </div>
+        <div class="grid-4">
+          <div class="skeleton sk-card"></div>
+          <div class="skeleton sk-card"></div>
+          <div class="skeleton sk-card"></div>
+          <div class="skeleton sk-card"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="flashsale-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Limited time <span class="state-tag state-error">Error</span></span>
+          <h2>Flash sale</h2>
+        </div>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('flashsale','loading');setTimeout(function(){switchState('flashsale','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="flashsale-empty" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Limited time <span class="state-tag state-empty">Empty</span></span>
+          <h2>Flash sale</h2>
+        </div>
+      </div>
+      <div class="section-empty">
+        <p>No active flash sales right now. Check back soon!</p>
+      </div>
+    </div>
+
+    <!-- Ended state -->
+    <div id="flashsale-ended" style="display:none;">
+      <div class="flash-wrap card">
+        <div class="flash-head">
+          <div>
+            <span class="eyebrow">Limited time <span class="state-tag state-ended">Ended</span></span>
+            <h2>Flash sale</h2>
+          </div>
+          <div class="countdown-ended">Sale ended</div>
+        </div>
+        <div class="grid-4">
+          <article class="pc">
+            <a class="media" href="#">
+              <img src="https://picsum.photos/seed/flash1/400/400" alt="" loading="lazy">
+              <div class="tag-row">
+                <span class="badge badge-sale">-40%</span>
+              </div>
+              <button class="wishlist-btn" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+            </a>
+            <div class="body">
+              <div class="cat-label">audio</div>
+              <h3 class="prod-name"><a href="#">Aurora Wireless Headphones</a></h3>
+              <div class="stars" role="img" aria-label="4.6 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:92%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+              <div class="foot">
+                <div style="flex:1;"></div>
+                <button class="btn add-btn" type="button">Add</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden (null) state — section hidden entirely from DOM -->
+    <div id="flashsale-hidden" style="display:none;">
+      <div style="text-align:center;padding:24px;color:var(--ink-3);">
+        <p><em>Section hidden from DOM &mdash; no flash sale data (null response).</em></p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 7. RECOMMENDATIONS SECTION (placeholder, always shows skeletons) -->
+<!-- ================================================================ -->
+<div class="demo-section">
+  <span class="demo-section-label">RecommendationsSection</span>
+  <section class="container section" aria-labelledby="rec-title">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">For you</span>
+        <h2 id="rec-title">Picked for you</h2>
+      </div>
+    </div>
+    <div class="rec-wrap">
+      <div class="grid-4">
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+        <div class="skeleton sk-card"></div>
+      </div>
+      <div class="rec-overlay">
+        <div class="rec-pill">Personalized recommendations coming soon</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 8. BRAND SECTION                                                 -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-brands">
+  <span class="demo-section-label">BrandSection</span>
+  <section class="container section" aria-label="Partner brands">
+
+    <!-- Idle state -->
+    <div id="brands-idle">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Partners <span class="state-tag state-idle">Idle</span></span>
+          <h2>Brands we love</h2>
+        </div>
+      </div>
+      <div class="brand-row">
+        <div class="brand-tile">
+          <div class="brand-init">AK</div>
+        </div>
+        <div class="brand-tile">
+          <div class="brand-init">PL</div>
+        </div>
+        <div class="brand-tile">
+          <div class="brand-init">NM</div>
+        </div>
+        <div class="brand-tile">
+          <div class="brand-init">VX</div>
+        </div>
+        <div class="brand-tile">
+          <div class="brand-init">EC</div>
+        </div>
+        <div class="brand-tile">
+          <div class="brand-init">HG</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="brands-loading" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Partners <span class="state-tag state-loading">Loading</span></span>
+          <h2>Brands we love</h2>
+        </div>
+      </div>
+      <div class="brand-row">
+        <div class="skeleton sk-brand"></div>
+        <div class="skeleton sk-brand"></div>
+        <div class="skeleton sk-brand"></div>
+        <div class="skeleton sk-brand"></div>
+        <div class="skeleton sk-brand"></div>
+        <div class="skeleton sk-brand"></div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="brands-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Partners <span class="state-tag state-error">Error</span></span>
+          <h2>Brands we love</h2>
+        </div>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('brands','loading');setTimeout(function(){switchState('brands','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state (section hidden) -->
+    <div id="brands-empty" style="display:none;">
+      <div style="text-align:center;padding:24px;color:var(--ink-3);">
+        <p><em>Section hidden from DOM &mdash; no brands data (empty response).</em></p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 9. TESTIMONIALS SECTION                                          -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-testimonials">
+  <span class="demo-section-label">TestimonialsSection</span>
+  <section class="container section" aria-label="Customer testimonials">
+
+    <!-- Idle state -->
+    <div id="testimonials-idle">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Real reviews <span class="state-tag state-idle">Idle</span></span>
+          <h2>What our customers say</h2>
+        </div>
+      </div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="test-head">
+            <div class="test-avatar-init" aria-hidden="true">AK</div>
+            <div>
+              <div class="stars" role="img" aria-label="5 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:100%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+            </div>
+          </div>
+          <p class="test-quote">The wireless headphones have completely changed my workflow. Battery life is incredible and the sound quality is unmatched at this price point.</p>
+          <div>
+            <div class="test-author">Alex K.</div>
+            <div class="test-title">Software Engineer</div>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <div class="test-head">
+            <img class="test-avatar" src="https://picsum.photos/seed/avatar2/100/100" alt="" loading="lazy">
+            <div>
+              <div class="stars" role="img" aria-label="4 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:80%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+            </div>
+          </div>
+          <p class="test-quote">Great keyboard, amazing build quality. The hot-swap switches are a game changer for customisation. Would recommend to anyone looking for a premium typing experience.</p>
+          <div>
+            <div class="test-author">Morgan L.</div>
+            <div class="test-title">Product Designer</div>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <div class="test-head">
+            <div class="test-avatar-init" aria-hidden="true">JS</div>
+            <div>
+              <div class="stars" role="img" aria-label="5 out of 5">
+                <span class="stars-track">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span class="stars-fill" style="width:100%">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              </div>
+            </div>
+          </div>
+          <p class="test-quote">Shipping was faster than expected and the desk mat is beautiful. Exactly what my WFH setup needed. Will definitely be ordering more accessories.</p>
+          <div>
+            <div class="test-author">Jamie S.</div>
+            <div class="test-title">Remote Worker</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div id="testimonials-loading" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Real reviews <span class="state-tag state-loading">Loading</span></span>
+          <h2>What our customers say</h2>
+        </div>
+      </div>
+      <div class="test-grid">
+        <div class="sk-test">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="skeleton sk-test-avatar"></div>
+            <div class="skeleton sk-test-line wide" style="height:16px;"></div>
+          </div>
+          <div class="skeleton sk-test-line wide"></div>
+          <div class="skeleton sk-test-line med"></div>
+          <div class="skeleton sk-test-line narrow"></div>
+        </div>
+        <div class="sk-test">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="skeleton sk-test-avatar"></div>
+            <div class="skeleton sk-test-line wide" style="height:16px;"></div>
+          </div>
+          <div class="skeleton sk-test-line wide"></div>
+          <div class="skeleton sk-test-line med"></div>
+          <div class="skeleton sk-test-line narrow"></div>
+        </div>
+        <div class="sk-test">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="skeleton sk-test-avatar"></div>
+            <div class="skeleton sk-test-line wide" style="height:16px;"></div>
+          </div>
+          <div class="skeleton sk-test-line wide"></div>
+          <div class="skeleton sk-test-line med"></div>
+          <div class="skeleton sk-test-line narrow"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="testimonials-error" style="display:none;">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Real reviews <span class="state-tag state-error">Error</span></span>
+          <h2>What our customers say</h2>
+        </div>
+      </div>
+      <div class="section-error">
+        <p>Something went wrong loading this section.</p>
+        <button class="btn btn-outline" onclick="switchState('testimonials','loading');setTimeout(function(){switchState('testimonials','idle')},1200)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Empty state (section hidden) -->
+    <div id="testimonials-empty" style="display:none;">
+      <div style="text-align:center;padding:24px;color:var(--ink-3);">
+        <p><em>Section hidden from DOM &mdash; no testimonials data (empty response).</em></p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 10. NEWSLETTER SECTION                                           -->
+<!-- ================================================================ -->
+<div class="demo-section" id="sec-newsletter">
+  <span class="demo-section-label">NewsletterSection</span>
+  <section class="newsletter" aria-label="Newsletter signup">
+
+    <!-- Idle state -->
+    <div id="newsletter-idle">
+      <div class="newsletter-in">
+        <h2>Stay in the loop</h2>
+        <p class="subtitle muted">Get 10% off your first order.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input class="input" type="email" placeholder="Enter your email" aria-label="Email address for newsletter" style="max-width:300px;flex:1;">
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Submitting state -->
+    <div id="newsletter-submitting" style="display:none;">
+      <div class="newsletter-in">
+        <h2>Stay in the loop</h2>
+        <p class="subtitle muted">Get 10% off your first order.</p>
+        <form class="news-form">
+          <input class="input" type="email" value="alex@example.com" aria-label="Email address for newsletter" style="max-width:300px;flex:1;" disabled>
+          <button class="btn" type="submit" disabled>Subscribing...</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Validation error state -->
+    <div id="newsletter-validation-error" style="display:none;">
+      <div class="newsletter-in">
+        <h2>Stay in the loop</h2>
+        <p class="subtitle muted">Get 10% off your first order.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input class="input input-danger" type="email" value="not-an-email" aria-label="Email address for newsletter" style="max-width:300px;flex:1;">
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+        <div class="news-error" role="alert">Please enter a valid email address.</div>
+      </div>
+    </div>
+
+    <!-- Server error state -->
+    <div id="newsletter-server-error" style="display:none;">
+      <div class="newsletter-in">
+        <h2>Stay in the loop</h2>
+        <p class="subtitle muted">Get 10% off your first order.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input class="input" type="email" value="alex@example.com" aria-label="Email address for newsletter" style="max-width:300px;flex:1;">
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+        <div class="news-error" role="alert">Something went wrong. Please try again.</div>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div id="newsletter-success" style="display:none;">
+      <div class="newsletter-in">
+        <div class="news-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <p>Thanks for subscribing! Check your inbox for 10% off.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- ================================================================ -->
+<!-- 11. FOOTER (always present)                                      -->
+<!-- ================================================================ -->
+<footer class="ftr">
+  <div class="container ftr-grid">
+    <div class="ftr-brand-col">
+      <a class="ftr-brand" href="#">
+        <span class="mark" aria-hidden="true">&#9670;</span> Aurora
+      </a>
+      <p class="muted">
+        Considered gear for the modern desk. Free shipping over $99, 30-day returns.
+      </p>
+
+      <!-- Social links -->
+      <div class="social-row">
+        <a href="#" class="social-link" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ftr-col">
+      <h4>Shop</h4>
+      <a href="#">All products</a>
+      <a href="#">Audio</a>
+      <a href="#">Peripherals</a>
+      <a href="#">Displays</a>
+    </div>
+
+    <div class="ftr-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="ftr-col">
+      <h4>Support</h4>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">Warranty</a>
+      <a href="#">Help center</a>
+    </div>
+  </div>
+
+  <div class="container strip">
+    <span class="muted">&copy; 2026 Aurora Store. A design demo.</span>
+    <span class="pays" aria-hidden="true">
+      <span>VISA</span><span>MC</span><span>AMEX</span><span>PayPal</span>
+    </span>
+  </div>
+</footer>
+
+<!-- ================================================================ -->
+<!-- STATE SWITCHING SCRIPT                                           -->
+<!-- ================================================================ -->
+<script>
+function switchState(section, state) {
+  var groups = {
+    categories: ['categories-idle', 'categories-loading', 'categories-error', 'categories-empty'],
+    featured: ['featured-idle', 'featured-loading', 'featured-error', 'featured-empty'],
+    bestsellers: ['bestsellers-idle', 'bestsellers-loading', 'bestsellers-error', 'bestsellers-empty'],
+    flashsale: ['flashsale-idle', 'flashsale-loading', 'flashsale-error', 'flashsale-empty', 'flashsale-ended', 'flashsale-hidden'],
+    brands: ['brands-idle', 'brands-loading', 'brands-error', 'brands-empty'],
+    testimonials: ['testimonials-idle', 'testimonials-loading', 'testimonials-error', 'testimonials-empty'],
+    newsletter: ['newsletter-idle', 'newsletter-submitting', 'newsletter-validation-error', 'newsletter-server-error', 'newsletter-success']
+  };
+
+  var ids = groups[section];
+  if (!ids) return;
+
+  var targetId = section + '-' + state;
+  ids.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.style.display = (id === targetId) ? '' : 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

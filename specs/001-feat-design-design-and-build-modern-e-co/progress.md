@@ -6,7 +6,7 @@
 | Story | Status | Notes |
 |---|---|---|
 | S1 — Data Models & Types | ✅ DONE | Product discount fields + 4 new interfaces in models.ts, types.ts; type-instantiation tests pass |
-| S2 — Mock Data Fixtures | ⏳ PENDING | |
+| S2 — Mock Data Fixtures | ✅ DONE | testimonials.mock.ts, brands.mock.ts, products.mock.ts updates (discount + bestseller + FLASH_SALE), index.ts barrel, fixtures.util.spec.ts |
 | S3 — Mock Backend Routes | ⏳ PENDING | |
 | S4 — Service Layer | ⏳ PENDING | |
 | S5 — Wishlist Service | ⏳ PENDING | |
@@ -23,3 +23,7 @@
 | S16 — Newsletter Section | ⏳ PENDING | |
 | S17 — Home Layout Integration | ⏳ PENDING | |
 | S18 — Footer & Accessibility | ⏳ PENDING | |
+
+## S2 Mock Data Fixtures — DONE
+Files: src/mocks/testimonials.mock.ts (new), src/mocks/brands.mock.ts (new), src/mocks/products.mock.ts (updated), src/mocks/index.ts (updated), src/mocks/fixtures.util.spec.ts (new)
+Covers: FR-7.1 (mock files), FR-7.2 (product discount updates), FR-7.3 (flash sale fixture), FR-7.4 (barrel exports)

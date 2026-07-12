@@ -8,4 +8,6 @@ export * from './categories.mock';
 export * from './cart.mock';
 export * from './orders.mock';
 export * from './user.mock';
+export * from './testimonials.mock';
+export * from './brands.mock';
 export * from './mock-search.util';

@@ -27,6 +27,12 @@ export interface Product {
   /** 0–5, one decimal place. */
   rating: number;
   tags: string[];
+  /** Original price before discount; null means no active discount. */
+  originalPrice?: number | null;
+  /** Discount percentage, e.g. 20 means "20% OFF". */
+  discountPercentage?: number | null;
+  /** ISO 8601 end date for the sale; null if no time constraint. */
+  saleEndsAt?: string | null;
 }
 
 export interface Category {
@@ -85,4 +91,42 @@ export interface UserProfile {
   avatarUrl: string | null;
   memberSince: string;
   address: Address;
+}
+
+/** A time-limited flash sale featuring a curated set of discounted products. */
+export interface FlashSale {
+  id: string;
+  name: string;
+  /** ISO 8601 end timestamp. */
+  endsAt: string;
+  products: Product[];
+}
+
+/** A customer testimonial shown on the homepage. */
+export interface Testimonial {
+  id: string;
+  /** The testimonial body text. */
+  quote: string;
+  authorName: string;
+  /** Optional job title / role displayed below the author name. */
+  authorTitle?: string;
+  /** Null when the customer has no avatar (render a placeholder). */
+  avatarUrl: string | null;
+  /** 0–5 rating. */
+  rating: number;
+}
+
+/** A brand or partner logo displayed in the brand strip. */
+export interface Brand {
+  id: string;
+  name: string;
+  /** Null when the brand has no logo (render placeholder or skip). */
+  logoUrl: string | null;
+}
+
+/** Response returned by POST /api/newsletter/subscribe. */
+export interface NewsletterResponse {
+  success: boolean;
+  /** Human-readable message, present only on error. */
+  message?: string;
 }

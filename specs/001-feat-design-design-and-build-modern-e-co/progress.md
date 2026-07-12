@@ -1,0 +1,25 @@
+# Progress — Modern E-Commerce Homepage (Aurora Store)
+
+> **Feature ID:** `001-feat-design-design-and-build-modern-e-co`
+> **Started:** 2026-07-12
+
+| Story | Status | Notes |
+|---|---|---|
+| S1 — Data Models & Types | ✅ DONE | Product discount fields + 4 new interfaces in models.ts, types.ts; type-instantiation tests pass |
+| S2 — Mock Data Fixtures | ⏳ PENDING | |
+| S3 — Mock Backend Routes | ⏳ PENDING | |
+| S4 — Service Layer | ⏳ PENDING | |
+| S5 — Wishlist Service | ⏳ PENDING | |
+| S6 — Product Card Enhancements | ⏳ PENDING | |
+| S7 — Featured Section | ⏳ PENDING | |
+| S8 — Hero Section | ⏳ PENDING | |
+| S9 — Category Grid Section | ⏳ PENDING | |
+| S10 — Best Sellers Section | ⏳ PENDING | |
+| S11 — Flash Sale Section | ⏳ PENDING | |
+| S12 — Value Props Section | ⏳ PENDING | |
+| S13 — Featured Brands Section | ⏳ PENDING | |
+| S14 — Brand Strip | ⏳ PENDING | |
+| S15 — Testimonials Section | ⏳ PENDING | |
+| S16 — Newsletter Section | ⏳ PENDING | |
+| S17 — Home Layout Integration | ⏳ PENDING | |
+| S18 — Footer & Accessibility | ⏳ PENDING | |

@@ -20,7 +20,7 @@
 | S13 — Recommendations Section | ✅ DONE | |
 | S14 — Brand Section | ✅ DONE | |
 | S15 — Testimonials Section | ✅ DONE | |
-| S16 — Newsletter Section | ⏳ PENDING | |
+| S16 — Newsletter Section | ✅ DONE | |
 | S17 — Home Layout Integration | ⏳ PENDING | |
 | S18 — Footer & Accessibility | ⏳ PENDING | |
 
@@ -55,6 +55,10 @@ Covers: F1 (brand logo tiles), F3 (6 skeleton circles), F4 (error with retry), F
 ## S15 Testimonials Section — DONE
 Files: src/app/sections/testimonials-section.component.ts (new), src/app/sections/testimonials-section.util.ts (new), src/app/sections/testimonials-section.util.spec.ts (new)
 Covers: F1 (testimonials grid), F3 (3 skeleton cards), F4 (error with retry), F5 (empty → hidden), avatar image with initials fallback, star ratings
+
+## S16 Newsletter Section — DONE
+Files: src/app/sections/newsletter-section.component.ts (new), src/app/sections/newsletter-section.util.spec.ts (new)
+Covers: F1 (newsletter signup), F6 (full lifecycle: idle, validation, submitting, success, error), FormControl with Validators.email + Validators.required, 5 states, accessible with aria-label and role="alert"
 
 ## S12 Flash Sale Section — DONE
 Files: src/app/sections/recommendations-section.component.ts (new)

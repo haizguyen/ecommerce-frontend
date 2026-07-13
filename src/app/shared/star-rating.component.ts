@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 /**
  * Compact five-star rating display. Renders a filled overlay clipped to the
@@ -8,14 +7,16 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-star-rating',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="stars" [attr.aria-label]="rating + ' out of 5'" role="img">
       <span class="track">★★★★★</span>
       <span class="fill" [style.width.%]="(rating / 5) * 100">★★★★★</span>
     </span>
-    <span class="value" *ngIf="showValue">{{ rating.toFixed(1) }}</span>
+    @if (showValue) {
+      <span class="value">{{ rating.toFixed(1) }}</span>
+    }
   `,
   styles: [
     `

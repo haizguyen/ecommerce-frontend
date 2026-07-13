@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -13,7 +12,7 @@ import { CartService } from '../data/cart.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [FormsModule, RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="hdr">
@@ -60,9 +59,9 @@ import { CartService } from '../data/cart.service';
                 stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
-            <span class="count" *ngIf="cart.count() > 0" data-testid="cart-count">{{
-              cart.count()
-            }}</span>
+            @if (cart.count() > 0) {
+              <span class="count" data-testid="cart-count">{{ cart.count() }}</span>
+            }
           </a>
         </div>
       </div>

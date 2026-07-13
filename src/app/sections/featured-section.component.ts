@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, inject, Output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CatalogService } from '../data/catalog.service';
@@ -94,7 +94,6 @@ import { ProductCardComponent } from '../shared/product-card.component';
 })
 export class FeaturedSectionComponent {
   private readonly catalog = inject(CatalogService);
-  private readonly destroyRef = inject(DestroyRef);
 
   readonly products = signal<Product[]>([]);
   readonly loading = signal(true);

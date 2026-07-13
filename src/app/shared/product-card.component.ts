@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import type { Product } from '../data/models';
@@ -11,38 +10,43 @@ import { StarRatingComponent } from './star-rating.component';
  * fixture edge cases by design: null/broken image → branded placeholder, long
  * titles → clamped to two lines, out-of-stock → disabled add button + badge.
  *
- * S6 retrofit adds: discount badge, wishlist heart toggle, quick-view overlay,
- * original-price strikethrough.
+ * Uses modern @if/@else control flow for template consistency across the codebase.
  */
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, RouterLink, StarRatingComponent],
+  imports: [RouterLink, StarRatingComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="pc" [attr.data-testid]="'product-card-' + product.sku">
       <div class="media">
         <a [routerLink]="['/products', product.sku]" [attr.aria-label]="product.name">
-          <img
-            *ngIf="product.imageUrl && !imageFailed; else placeholder"
-            [src]="product.imageUrl"
-            [alt]="product.name"
-            loading="lazy"
-            (error)="imageFailed = true" />
-          <ng-template #placeholder>
+          @if (product.imageUrl && !imageFailed) {
+            <img
+              [src]="product.imageUrl"
+              [alt]="product.name"
+              loading="lazy"
+              (error)="imageFailed = true" />
+          } @else {
             <div class="ph" aria-hidden="true">
               <span>{{ initials }}</span>
             </div>
-          </ng-template>
+          }
         </a>
 
         <span class="tag-row">
-          <span *ngIf="product.discountPercentage" class="badge badge-sale"
-            >-{{ product.discountPercentage }}%</span
-          >
-          <span *ngIf="level === 'out'" class="badge badge-danger">Sold out</span>
-          <span *ngIf="level === 'low'" class="badge badge-warn">Low stock</span>
-          <span *ngIf="isNew" class="badge badge-accent">New</span>
+          @if (product.discountPercentage) {
+            <span class="badge badge-sale">-{{ product.discountPercentage }}%</span>
+          }
+          @if (level === 'out') {
+            <span class="badge badge-danger">Sold out</span>
+          }
+          @if (level === 'low') {
+            <span class="badge badge-warn">Low stock</span>
+          }
+          @if (isNew) {
+            <span class="badge badge-accent">New</span>
+          }
         </span>
 
         <button
@@ -52,20 +56,20 @@ import { StarRatingComponent } from './star-rating.component';
             wishlisted ? 'Remove ' + product.name + ' from wishlist' : 'Add ' + product.name + ' to wishlist'
           "
           (click)="toggleWishlist.emit(product)">
-          <svg
-            *ngIf="!wishlisted; else filledHeart"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-          <ng-template #filledHeart>
+          @if (!wishlisted) {
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+          } @else {
             <svg
               width="20"
               height="20"
@@ -78,7 +82,7 @@ import { StarRatingComponent } from './star-rating.component';
               <path
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-          </ng-template>
+          }
         </button>
 
         <button
@@ -99,9 +103,9 @@ import { StarRatingComponent } from './star-rating.component';
 
         <div class="foot">
           <div class="price">
-            <span *ngIf="product.originalPrice" class="price-old">{{
-              originalPrice
-            }}</span>
+            @if (product.originalPrice) {
+              <span class="price-old">{{ originalPrice }}</span>
+            }
             {{ price }}
           </div>
           <button

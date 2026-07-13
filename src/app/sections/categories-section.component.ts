@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { CatalogService } from '../data/catalog.service';
@@ -130,7 +130,6 @@ import type { Category } from '../data/models';
 })
 export class CategoriesSectionComponent {
   private readonly catalog = inject(CatalogService);
-  private readonly destroyRef = inject(DestroyRef);
 
   readonly categories = signal<Category[]>([]);
   readonly loading = signal(true);

@@ -35,7 +35,7 @@
 
 ## Story 2 — ThemeService + Header Theme Toggle [DONE]
 
-**Commit:** *(pending)*
+**Commit:** `ca93db7` — `feat(002-story-2): ThemeService + Header Theme Toggle`
 
 ### Accomplished
 - Created `src/app/data/theme.service.ts` — signal-based service with `isDark` readonly signal, `toggle()`, `matchMedia` OS-preference detection, `localStorage` persistence under `aurora-theme`, `.dark` class sync, listener gated by manual-override check
@@ -87,9 +87,24 @@
 
 ---
 
-## Story 5 — Type Scale Adoption [PENDING]
+## Story 5 — Type Scale Adoption [DONE]
 
-**Blocked by:** Story 1 (tokens exist)
+**Commit:** `e474f09` — `feat(002-story-5): Type Scale Adoption`
+
+### Accomplished
+- `src/styles.css`: Body `font-size: 15px` → `var(--text-base)`, `line-height: 1.5` → `var(--lh-normal)`
+- `src/styles.css`: `h1-h4` `font-weight: 640` → `var(--fw-heading)`, `letter-spacing: -0.02em` → `var(--ls-tight)`
+- `src/styles.css`: `.eyebrow` `font-size: 12px` → `var(--text-xs)`, `letter-spacing: 0.14em` → `0.12em`
+- `src/styles.css`: `.section-head h2` `clamp(22px,2.4vw,30px)` → `var(--text-xl)`
+- `src/app/sections/hero-section.component.ts`: Hero h1 `clamp(34px,5vw,58px)` → `var(--text-4xl)`
+- `src/app/pages/cart.component.ts`: Cart h1 `clamp(26px,3vw,36px)` → `var(--text-2xl)`
+- `src/app/pages/product-detail.component.ts`: Detail h1 `clamp(24px,3vw,34px)` → `var(--text-2xl)`
+- `src/app/pages/product-list.component.ts`: List h1 `clamp(26px,3vw,36px)` → `var(--text-2xl)`
+
+### Verification
+- `npm run test:ci`: 18 suites, 158 tests — all pass
+- `npm run test:visual`: 6/7 pass (1 pre-existing failure: `product-detail @ desktop` — qv-btn click interception, unrelated)
+- `npm run lint`: passes
 
 ---
 

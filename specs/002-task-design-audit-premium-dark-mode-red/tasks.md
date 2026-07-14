@@ -178,11 +178,11 @@
 - **VI (visual inspection):** Eyebrow font-size `var(--text-xs)`, heading weight `var(--fw-heading)`
 
 **Definition of done:**
-- [ ] Body `font-size` → `var(--text-base)` (16px), `line-height` → `var(--lh-normal)` (1.55) (spec Section 5.1)
-- [ ] `h1-h4` weight → `var(--fw-heading)` (620), letter-spacing → `var(--ls-tight)` (spec Section 5.1)
-- [ ] `.eyebrow` font-size → `var(--text-xs)`, letter-spacing → `0.12em` (spec Section 5.1)
-- [ ] All per-component `clamp()` heading sizes replaced with type-scale tokens where possible
-- [ ] `npm run lint` passes
+- [x] Body `font-size` → `var(--text-base)` (16px), `line-height` → `var(--lh-normal)` (1.55) (spec Section 5.1)
+- [x] `h1-h4` weight → `var(--fw-heading)` (620), letter-spacing → `var(--ls-tight)` (spec Section 5.1)
+- [x] `.eyebrow` font-size → `var(--text-xs)`, letter-spacing → `0.12em` (spec Section 5.1)
+- [x] All per-component `clamp()` heading sizes replaced with type-scale tokens where possible
+- [x] `npm run lint` passes
 
 ---
 

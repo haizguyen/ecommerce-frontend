@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { CartService } from '../data/cart.service';
+import { ThemeService } from '../data/theme.service';
 
 /**
  * Sticky store header: brand, primary nav, catalogue search and the live cart
@@ -49,6 +50,27 @@ import { CartService } from '../data/cart.service';
         </form>
 
         <div class="actions">
+          <button
+            class="theme-btn"
+            (click)="theme.toggle()"
+            [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+            data-testid="theme-toggle">
+            @if (theme.isDark()) {
+              <!-- Sun icon -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+                      fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            } @else {
+              <!-- Moon icon -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"
+                      fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            }
+          </button>
+
           <a class="cart" routerLink="/cart" aria-label="Cart" data-testid="cart-link">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -73,8 +95,9 @@ import { CartService } from '../data/cart.service';
         position: sticky;
         top: 0;
         z-index: 50;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: saturate(1.4) blur(12px);
+        background: var(--surface); /* fallback for older browsers */
+        background: color-mix(in srgb, var(--surface) 80%, transparent);
+        backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--line);
       }
       .bar {
@@ -189,6 +212,27 @@ import { CartService } from '../data/cart.service';
         border: 2px solid var(--surface);
         border-radius: var(--r-pill);
       }
+      .theme-btn {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+        border-radius: var(--r-pill);
+        background: transparent;
+        color: var(--ink-2);
+        cursor: pointer;
+        transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+      }
+      .theme-btn:hover {
+        color: var(--ink);
+        background: var(--surface-2);
+      }
+      .theme-btn svg {
+        width: 18px;
+        height: 18px;
+      }
       @media (max-width: 720px) {
         .nav {
           display: none;
@@ -202,6 +246,7 @@ import { CartService } from '../data/cart.service';
 })
 export class HeaderComponent {
   readonly cart = inject(CartService);
+  readonly theme = inject(ThemeService);
   private readonly router = inject(Router);
 
   query = '';

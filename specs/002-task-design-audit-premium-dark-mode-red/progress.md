@@ -69,7 +69,7 @@
 
 ## Story 4 — Replace Hardcoded Colors in Sections and Pages [DONE]
 
-**Commit:** `61c1f7b` — `feat(002-story-4): Replace Hardcoded Colors in Sections and Pages`
+**Commit:** `4dad339` — `feat(002-story-4): Replace Hardcoded Colors in Sections and Pages`
 
 ### Accomplished
 - `src/app/sections/hero-section.component.ts`: Hero bg gradient `#eef0ff` → dark `rgba(129,140,248,0.15)`, indigo blobs `#c7ccff`/`#8b93f5` → dark `#6366f1`/`#4338ca` with `opacity: 0.3`, warm blobs `#ffe0c2`/`#ffb27a` → dark `#f59e0b`/`#d97706` with `opacity: 0.2`, glass panel bg → `color-mix(in srgb, var(--surface) 75%, transparent)`, glass panel border → `var(--line)`. Dark-mode overrides in both `@media (prefers-color-scheme: dark)` and `:root.dark` blocks

@@ -513,6 +513,47 @@ button {
   }
 }
 
+/* ---------- Staggered card entrance ---------- */
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-stagger {
+  animation: card-enter 400ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* ---------- Button loading spinner ---------- */
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+  color: transparent !important;
+}
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--on-accent);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 600ms linear infinite;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

@@ -55,19 +55,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       pointer-events: none;
       user-select: none;
     }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
     .sk-card {
       aspect-ratio: 3 / 4;
-    }
-    @media (max-width: 980px) {
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 560px) {
-      .grid-4 { grid-template-columns: 1fr; }
     }
   `]
 })

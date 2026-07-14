@@ -62,9 +62,10 @@ import { CatalogService } from '../data/catalog.service';
             <button
               class="btn"
               type="submit"
+              [class.btn-loading]="submitting()"
               [disabled]="submitting()"
             >
-              {{ submitting() ? 'Subscribing…' : 'Subscribe' }}
+              Subscribe
             </button>
           </form>
 
@@ -86,7 +87,7 @@ import { CatalogService } from '../data/catalog.service';
   styles: [`
     .newsletter-section {
       background: var(--accent-soft);
-      padding-block: 72px;
+      padding-block: var(--space-18);
     }
     .newsletter-inner {
       max-width: 520px;

@@ -128,7 +128,7 @@ import { canOrder, clampQuantity, hasDecremented } from '../quantity.util';
             {{ placing() ? 'Placing…' : 'Buy now (qty ' + quantity() + ')' }}
           </button>
 
-          <div class="status" [attr.data-testid]="'status-' + p.sku" [class.on]="status()">
+          <div class="status" aria-live="polite" [attr.data-testid]="'status-' + p.sku" [class.on]="status()">
             {{ status() }}
           </div>
 
@@ -174,7 +174,7 @@ import { canOrder, clampQuantity, hasDecremented } from '../quantity.util';
         </div>
 
         <div class="state notfound" *ngIf="!loading()">
-          <div class="empty-ico">🧭</div>
+          <div class="empty-ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
           <h2>Product not found</h2>
           <p class="muted">We couldn't find that product. It may have sold out or moved.</p>
           <a class="btn" routerLink="/products">Back to shop</a>

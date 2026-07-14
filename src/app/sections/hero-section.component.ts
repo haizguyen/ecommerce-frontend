@@ -56,7 +56,7 @@ import { RouterLink } from '@angular/router';
         grid-template-columns: 1.15fr 0.85fr;
         gap: 40px;
         align-items: center;
-        padding-block: 72px;
+        padding-block: var(--space-18);
       }
       .hero-copy h1 {
         font-size: var(--text-4xl);

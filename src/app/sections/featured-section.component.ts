@@ -28,7 +28,7 @@ import { ProductCardComponent } from '../shared/product-card.component';
       </div>
 
       @if (loading()) {
-        <div class="grid">
+        <div class="grid-4">
           @for (i of [1,2,3,4]; track i) {
             <div class="sk skeleton sk-card"></div>
           }
@@ -43,24 +43,21 @@ import { ProductCardComponent } from '../shared/product-card.component';
           <p class="muted">Nothing to feature this week &mdash; check back soon.</p>
         </div>
       } @else {
-        <div class="grid">
-          @for (p of products(); track p.sku) {
-            <app-product-card
-              [product]="p"
-              (add)="add.emit($event)"
-              (toggleWishlist)="toggleWishlist.emit($event)"
-              (quickView)="quickView.emit($event)"></app-product-card>
+        <div class="grid-4">
+          @for (p of products(); track p.sku; let i = $index) {
+            <div class="card-stagger" style="--i: {{ i }}">
+              <app-product-card
+                [product]="p"
+                (add)="add.emit($event)"
+                (toggleWishlist)="toggleWishlist.emit($event)"
+                (quickView)="quickView.emit($event)"></app-product-card>
+            </div>
           }
         </div>
       }
     </section>
   `,
   styles: [`
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
     .pt0 {
       padding-top: 0;
     }
@@ -78,17 +75,6 @@ import { ProductCardComponent } from '../shared/product-card.component';
     .state-msg p {
       margin: 0;
       font-size: 15px;
-    }
-
-    @media (max-width: 980px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 560px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
   `]
 })

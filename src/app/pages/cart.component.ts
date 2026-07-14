@@ -126,7 +126,7 @@ const SHIPPING_FLAT = 9.9;
         padding: 28px 0 22px;
       }
       .head h1 {
-        font-size: clamp(26px, 3vw, 36px);
+        font-size: var(--text-2xl);
       }
       /* Empty */
       .empty {

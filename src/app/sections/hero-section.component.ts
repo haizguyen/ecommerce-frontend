@@ -59,7 +59,7 @@ import { RouterLink } from '@angular/router';
         padding-block: 72px;
       }
       .hero-copy h1 {
-        font-size: clamp(34px, 5vw, 58px);
+        font-size: var(--text-4xl);
         line-height: 1.03;
         margin: 14px 0 18px;
       }

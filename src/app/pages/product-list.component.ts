@@ -114,7 +114,7 @@ import { applyCatalogQuery, SORT_OPTIONS, type SortKey } from '../shared/catalog
         margin: 14px 0 22px;
       }
       .head h1 {
-        font-size: clamp(26px, 3vw, 36px);
+        font-size: var(--text-2xl);
         margin-bottom: 6px;
       }
       .sort .select {

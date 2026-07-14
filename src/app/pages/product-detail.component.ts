@@ -257,7 +257,7 @@ import { canOrder, clampQuantity, hasDecremented } from '../quantity.util';
         color: var(--ink-3);
       }
       .buy h1 {
-        font-size: clamp(24px, 3vw, 34px);
+        font-size: var(--text-2xl);
         margin: 8px 0 12px;
       }
       .meta {

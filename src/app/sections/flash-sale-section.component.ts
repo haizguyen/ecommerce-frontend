@@ -88,6 +88,16 @@ import { formatCountdown } from './flash-sale-section.util';
       background: linear-gradient(180deg, var(--danger-soft) 0%, var(--surface) 40%);
       padding: 32px;
     }
+    @media (prefers-color-scheme: dark) {
+      .flash-wrap {
+        background: linear-gradient(180deg, rgba(251,113,133,0.08) 0%, var(--surface) 45%);
+        box-shadow: 0 0 20px rgba(251, 113, 133, 0.1);
+      }
+    }
+    :root.dark .flash-wrap {
+      background: linear-gradient(180deg, rgba(251,113,133,0.08) 0%, var(--surface) 45%);
+      box-shadow: 0 0 20px rgba(251, 113, 133, 0.1);
+    }
     .flash-head {
       display: flex;
       align-items: flex-end;

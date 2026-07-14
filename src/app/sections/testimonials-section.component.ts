@@ -97,10 +97,10 @@ import { getInitials } from './testimonials-section.util';
       gap: 20px;
     }
     .test-card {
-      padding: 20px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
     .test-head {
       display: flex;
@@ -124,10 +124,11 @@ import { getInitials } from './testimonials-section.util';
       font-size: 16px;
       font-weight: 700;
       color: var(--ink-3);
-      background: linear-gradient(135deg, #efeee9, #e3e2dc);
+      background: var(--surface-2);
     }
     .test-quote {
-      font-size: 15px;
+      font-size: var(--text-base);
+      line-height: var(--lh-relaxed);
       font-style: italic;
       color: var(--ink-2);
       display: -webkit-box;

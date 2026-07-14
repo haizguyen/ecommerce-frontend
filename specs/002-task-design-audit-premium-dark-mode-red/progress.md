@@ -67,15 +67,23 @@
 
 ---
 
-## Story 4 — Replace Hardcoded Colors in Sections and Pages [PENDING]
+## Story 4 — Replace Hardcoded Colors in Sections and Pages [DONE]
 
-**Blocked by:** Story 2
+**Commit:** `61c1f7b` — `feat(002-story-4): Replace Hardcoded Colors in Sections and Pages`
 
-### Targets
-- `hero-section.component.ts`: gradient blob colors
-- `flash-sale-section.component.ts`: gradient adaptation
-- `newsletter-section.component.ts`: background
-- `footer.component.ts`: top-glow for dark mode
+### Accomplished
+- `src/app/sections/hero-section.component.ts`: Hero bg gradient `#eef0ff` → dark `rgba(129,140,248,0.15)`, indigo blobs `#c7ccff`/`#8b93f5` → dark `#6366f1`/`#4338ca` with `opacity: 0.3`, warm blobs `#ffe0c2`/`#ffb27a` → dark `#f59e0b`/`#d97706` with `opacity: 0.2`, glass panel bg → `color-mix(in srgb, var(--surface) 75%, transparent)`, glass panel border → `var(--line)`. Dark-mode overrides in both `@media (prefers-color-scheme: dark)` and `:root.dark` blocks
+- `src/app/sections/flash-sale-section.component.ts`: Dark gradient adapted to `rgba(251,113,133,0.08)` at 45%, added `box-shadow: 0 0 20px rgba(251,113,133,0.1)` glow for dark mode
+- `src/app/sections/testimonials-section.component.ts`: Card padding `20px` → `24px`, gap `12px` → `16px`, quote font `15px` → `var(--text-base)` with `var(--lh-relaxed)`, avatar fallback gradient → `var(--surface-2)`
+- `src/app/sections/brand-section.component.ts`: Initials fallback gradient → `var(--surface-2)`
+- `src/app/sections/search-section.component.ts`: Focus shadow `rgba(99,102,241,0.15)` → `var(--accent-soft)`
+- `src/app/pages/cart.component.ts`: Thumb placeholder gradient → `var(--surface-2)`, progress bar `#e3e2dc` → `var(--line)`
+- `src/app/pages/product-detail.component.ts`: Image placeholder gradient → `var(--surface-2)`
+
+### Verification
+- `npm run test:ci`: 18 suites, 158 tests — all pass
+- `npm run test:visual`: 6/7 pass (1 pre-existing failure: `product-detail @ desktop` — qv-btn click interception, unrelated)
+- `npm run lint`: passes
 
 ---
 

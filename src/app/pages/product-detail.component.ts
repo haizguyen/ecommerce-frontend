@@ -226,7 +226,7 @@ import { canOrder, clampQuantity, hasDecremented } from '../quantity.util';
         place-items: center;
         font-size: 72px;
         color: var(--ink-3);
-        background: linear-gradient(135deg, #efeee9, #e3e2dc);
+        background: var(--surface-2);
       }
       .ph.small {
         font-size: 26px;

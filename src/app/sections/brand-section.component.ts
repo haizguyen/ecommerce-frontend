@@ -98,7 +98,7 @@ import { getInitials } from './brand-section.util';
       place-items: center;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #efeee9, #e3e2dc);
+      background: var(--surface-2);
     }
     .sk-brand {
       width: 80px;

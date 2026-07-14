@@ -124,6 +124,23 @@ import { RouterLink } from '@angular/router';
         backdrop-filter: blur(8px);
       }
 
+      @media (prefers-color-scheme: dark) {
+        .hero {
+          background: radial-gradient(120% 120% at 85% 10%, rgba(129,140,248,0.15) 0%, transparent 55%),
+            var(--surface);
+        }
+        .b1 { background: radial-gradient(circle at 30% 30%, #6366f1, #4338ca); opacity: 0.3; }
+        .b2 { background: radial-gradient(circle at 30% 30%, #f59e0b, #d97706); opacity: 0.2; }
+        .glass { background: color-mix(in srgb, var(--surface) 75%, transparent); border-color: var(--line); }
+      }
+      :root.dark .hero {
+        background: radial-gradient(120% 120% at 85% 10%, rgba(129,140,248,0.15) 0%, transparent 55%),
+          var(--surface);
+      }
+      :root.dark .b1 { background: radial-gradient(circle at 30% 30%, #6366f1, #4338ca); opacity: 0.3; }
+      :root.dark .b2 { background: radial-gradient(circle at 30% 30%, #f59e0b, #d97706); opacity: 0.2; }
+      :root.dark .glass { background: color-mix(in srgb, var(--surface) 75%, transparent); border-color: var(--line); }
+
       @media (max-width: 980px) {
         .hero-in {
           grid-template-columns: 1fr;

@@ -175,7 +175,7 @@ const SHIPPING_FLAT = 9.9;
         display: grid;
         place-items: center;
         border-radius: var(--r-md);
-        background: linear-gradient(135deg, #efeee9, #e3e2dc);
+        background: var(--surface-2);
         color: var(--ink-3);
         font-weight: 700;
         font-size: 22px;
@@ -275,7 +275,7 @@ const SHIPPING_FLAT = 9.9;
       .ship-nudge .bar {
         height: 6px;
         border-radius: var(--r-pill);
-        background: #e3e2dc;
+        background: var(--line);
         margin-top: 10px;
         overflow: hidden;
       }

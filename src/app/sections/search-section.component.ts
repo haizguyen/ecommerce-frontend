@@ -72,7 +72,7 @@ import { Router } from '@angular/router';
       }
       .search-input:focus {
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        box-shadow: 0 0 0 3px var(--accent-soft);
       }
       .search-input::-webkit-search-decoration,
       .search-input::-webkit-search-cancel-button {

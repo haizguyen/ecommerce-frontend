@@ -213,14 +213,14 @@
 - **R6 check:** `ng build --configuration production` succeeds with `@angular/animations` included
 
 **Definition of done:**
-- [ ] `@angular/animations` installed, `provideAnimations()` in `app.config.ts`
-- [ ] Route transition animation (fade + slide-up, 150ms) defined and working
-- [ ] Staggered card entrance animation (`--i * 80ms`) added to all product grid `@for` loops
-- [ ] `.btn-loading` CSS spinner class added to `src/styles.css` (spec Section 5.3)
-- [ ] Newsletter subscribe button uses `.btn-loading` instead of "Subscribing…" text
-- [ ] Footer top glow `box-shadow` added for dark mode (spec Section 5.6)
-- [ ] `ng build --configuration production` succeeds
-- [ ] `npm run lint` passes
+- [x] `@angular/animations` installed, `provideAnimations()` in `app.config.ts`
+- [x] Route transition animation (fade + slide-up, 150ms) defined and working
+- [x] Staggered card entrance animation (`--i * 80ms`) added to all product grid `@for` loops
+- [x] `.btn-loading` CSS spinner class added to `src/styles.css` (spec Section 5.3)
+- [x] Newsletter subscribe button uses `.btn-loading` instead of "Subscribing…" text
+- [x] Footer top glow `box-shadow` added for dark mode (spec Section 5.6)
+- [x] `ng build --configuration production` succeeds
+- [x] `npm run lint` passes
 
 ---
 
@@ -252,15 +252,15 @@
 - All existing E2E tests pass (no selector changes)
 
 **Definition of done:**
-- [ ] All product-grid sections use `.grid-4`/`.grid-3` utility classes instead of inline grid declarations
-- [ ] Categories grid uses spacing-scale token and 980px/720px breakpoints
-- [ ] Testimonials grid uses `.grid-auto` or explicit class with unified breakpoints
-- [ ] Product-list grid breakpoints match unified scheme (4→3 @980px, 3→2 @720px)
-- [ ] Section padding-block values use spacing-scale tokens (spec Section 6.3)
-- [ ] 560px breakpoint eliminated from all sections
-- [ ] Layout verified on 600px, 768px, 1024px widths — no regression
-- [ ] `npm run test:visual` passes with new responsive baselines
-- [ ] `npm run lint` passes
+- [x] All product-grid sections use `.grid-4`/`.grid-3` utility classes instead of inline grid declarations
+- [x] Categories grid uses spacing-scale token and 980px/720px breakpoints
+- [x] Testimonials grid uses `.grid-auto` or explicit class with unified breakpoints
+- [x] Product-list grid breakpoints match unified scheme (4→3 @980px, 3→2 @720px)
+- [x] Section padding-block values use spacing-scale tokens (spec Section 6.3)
+- [x] 560px breakpoint eliminated from all sections
+- [x] Layout verified on 600px, 768px, 1024px widths — no regression
+- [x] `npm run test:visual` passes with new responsive baselines
+- [x] `npm run lint` passes
 
 ---
 
@@ -295,12 +295,12 @@
 - **VI-10:** Empty states show SVG icons — no emoji characters present
 
 **Definition of done:**
-- [ ] `🔍` in product-list empty state → inline SVG search icon with `aria-hidden="true"`
-- [ ] `🛍️` in cart empty state → inline SVG shopping bag icon with `aria-hidden="true"`
-- [ ] `🧭` in product-detail empty state → inline SVG compass icon with `aria-hidden="true"`
-- [ ] All SVGs match HeaderComponent icon style (`stroke-width: 1.8`, `currentColor`)
-- [ ] Order status div has `aria-live="polite"` + `role="status"` (spec Section 7.4)
-- [ ] Cart confirmation has `aria-live="polite"` (spec Section 7.4)
-- [ ] Route change focuses `#content` heading (spec Section 7.4)
-- [ ] Route transitions respect `prefers-reduced-motion`
-- [ ] `npm run lint` passes
+- [x] `🔍` in product-list empty state → inline SVG search icon with `aria-hidden="true"`
+- [x] `🛍️` in cart empty state → inline SVG shopping bag icon with `aria-hidden="true"`
+- [x] `🧭` in product-detail empty state → inline SVG compass icon with `aria-hidden="true"`
+- [x] All SVGs match HeaderComponent icon style (`stroke-width: 1.8`, `currentColor`)
+- [x] Order status div has `aria-live="polite"` + `role="status"` (spec Section 7.4)
+- [x] Cart confirmation has `aria-live="polite"` (spec Section 7.4)
+- [x] Route change focuses `#content` heading (spec Section 7.4)
+- [x] Route transitions respect `prefers-reduced-motion`
+- [x] `npm run lint` passes

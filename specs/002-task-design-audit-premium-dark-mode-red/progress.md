@@ -5,7 +5,7 @@
 | **Feature ID** | `002-task-design-audit-premium-dark-mode-red` |
 | **Branch** | `aiko/aiko-sdd-lite-fe-task-design-audit-premium-dark-mo-3af83179` |
 | **Started** | 2026-07-14 |
-| **Status** | In Progress |
+| **Status** | Complete |
 
 ---
 
@@ -108,18 +108,69 @@
 
 ---
 
-## Story 6 — Premium Polish [PENDING]
+## Story 6 — Premium Polish [DONE]
 
-**Blocked by:** Stories 1-4
+**Commit:** `c9ad186` — `feat(002-stories-6-8): Premium Polish, Layout Cleanup, and Accessibility`
+
+### Accomplished
+- Added `@angular/animations` dependency (`npm install`)
+- Added `provideAnimations()` to `app.config.ts` providers
+- Created `src/app/animations.ts` with `routeAnimations` trigger (fade + slide-up 12px, 150ms ease-out, leave fade 120ms)
+- Wired `routeAnimations` in `app.component.ts` with `[@routeAnimations]="getRouteAnimation(outlet)"` binding
+- Added route `data: { animation: '...' }` to all 4 routes in `app.routes.ts` for animation state distinction
+- Added `[@.disabled]="animationsDisabled"` binding respecting `prefers-reduced-motion: reduce`
+- Added `@keyframes card-enter` and `.card-stagger` class CSS to `src/styles.css` (fade + slide-up 400ms, stagger delay `calc(var(--i) * 80ms)`)
+- Added `.btn-loading` class CSS (spinning border spinner, text hidden via `color: transparent`)
+- Applied `.card-stagger` with `style="--i: $index"` to product card wrappers in featured-section, best-sellers-section, flash-sale-section
+- Applied `[class.btn-loading]="submitting()"` to newsletter subscribe button, removed conditional "Subscribing…" text toggle
+- Added footer dark-mode top glow: `box-shadow: 0 -1px 0 rgba(255,255,255,0.05)` via media query and `:root.dark` in footer component
+
+### Verification
+- `npm run test:ci`: 18 suites, 158 tests — all pass
+- `npm run test:visual`: 6/7 pass (1 pre-existing failure: `product-detail @ desktop` — qv-btn click interception, unrelated)
+- `npm run lint`: passes
+- `ng build --configuration production`: builds successfully (1 pre-existing CSS syntax warning, cosmetic)
 
 ---
 
-## Story 7 — Layout Cleanup [PENDING]
+## Story 7 — Layout Cleanup [DONE]
 
-**Blocked by:** Story 1 (utilities exist)
+**Commit:** `c9ad186` — `feat(002-stories-6-8): Premium Polish, Layout Cleanup, and Accessibility`
+
+### Accomplished
+- `src/app/sections/hero-section.component.ts`: `padding-block: 72px` → `var(--space-18)`
+- `src/app/sections/newsletter-section.component.ts`: `padding-block: 72px` → `var(--space-18)`
+- `src/app/layout/footer.component.ts`: `margin-top: 72px` → `var(--space-18)`
+- `src/app/sections/featured-section.component.ts`: Switched from local `.grid` with `gap: 20px` to global `.grid-4` (24px gap, 980px/720px breakpoints); removed local grid styles
+- `src/app/sections/best-sellers-section.component.ts`: Removed local `.grid-4` override (was `gap: 20px`), now inherits global utility
+- `src/app/sections/flash-sale-section.component.ts`: Same as best-sellers — removed local override
+- `src/app/sections/recommendations-section.component.ts`: Same as best-sellers — removed local override
+- `src/app/sections/testimonials-section.component.ts`: Switched from local `.test-grid` to global `.grid-3`; removed local grid + breakpoint
+- `src/app/sections/categories-section.component.ts`: Gap `14px` → `var(--space-3)` (12px); breakpoint `560px` → `720px` for standard scheme
+- `src/app/pages/product-list.component.ts`: Verified already has correct breakpoint scheme — no changes needed
+- Standardized all breakout breakpoints from custom values (560px) to 980px/720px scheme
+
+### Verification
+- `npm run test:ci`: 18 suites, 158 tests — all pass
+- `npm run lint`: passes
+- `ng build --configuration production`: builds successfully (1 pre-existing CSS syntax warning, cosmetic)
 
 ---
 
-## Story 8 — Accessibility [PENDING]
+## Story 8 — Accessibility [DONE]
 
-**Blocked by:** Story 4 (emoji replacement in pages)
+**Commit:** `c9ad186` — `feat(002-stories-6-8): Premium Polish, Layout Cleanup, and Accessibility`
+
+### Accomplished
+- `src/app/pages/product-list.component.ts`: Replaced 🔍 emoji in empty state (`<div class="empty-ico">🔍</div>`) with inline SVG magnifying glass icon (`aria-hidden="true"`)
+- `src/app/pages/cart.component.ts`: Replaced 🛍️ emoji in empty state (`<div class="empty-ico">🛍️</div>`) with inline SVG shopping bag icon (`aria-hidden="true"`)
+- `src/app/pages/product-detail.component.ts`: Replaced 🧭 emoji in empty state (`<div class="empty-ico">🧭</div>`) with inline SVG compass icon (`aria-hidden="true"`)
+- `src/app/pages/product-detail.component.ts`: Added `aria-live="polite"` to the order status div for dynamic order status announcements
+- `src/app/pages/cart.component.ts`: Cart confirmation already had `role="status"` (implicit `aria-live="polite"`) — no changes needed
+- `src/app/app.component.ts`: Added `tabindex="-1"` to `<main id="content">` for programmatic focusability
+- `src/app/app.component.ts`: Added route-change focus management via `Router.events` — on `NavigationEnd`, focuses `#content` and scrolls to top
+
+### Verification
+- `npm run test:ci`: 18 suites, 158 tests — all pass
+- `npm run lint`: passes
+- `ng build --configuration production`: builds successfully (1 pre-existing CSS syntax warning, cosmetic)

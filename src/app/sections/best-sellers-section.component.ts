@@ -44,23 +44,20 @@ import { ProductCardComponent } from '../shared/product-card.component';
         </div>
       } @else {
         <div class="grid-4">
-          @for (p of products(); track p.sku) {
-            <app-product-card
-              [product]="p"
-              (add)="add.emit($event)"
-              (toggleWishlist)="toggleWishlist.emit($event)"
-              (quickView)="quickView.emit($event)"></app-product-card>
+          @for (p of products(); track p.sku; let i = $index) {
+            <div class="card-stagger" style="--i: {{ i }}">
+              <app-product-card
+                [product]="p"
+                (add)="add.emit($event)"
+                (toggleWishlist)="toggleWishlist.emit($event)"
+                (quickView)="quickView.emit($event)"></app-product-card>
+            </div>
           }
         </div>
       }
     </section>
   `,
   styles: [`
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
     .sk-card {
       aspect-ratio: 3 / 4;
     }
@@ -75,17 +72,6 @@ import { ProductCardComponent } from '../shared/product-card.component';
     .state-msg p {
       margin: 0;
       font-size: 15px;
-    }
-
-    @media (max-width: 980px) {
-      .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 560px) {
-      .grid-4 {
-        grid-template-columns: 1fr;
-      }
     }
   `]
 })

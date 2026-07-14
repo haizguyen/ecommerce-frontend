@@ -73,7 +73,7 @@ import { RouterLink } from '@angular/router';
   styles: [
     `
       .ftr {
-        margin-top: 72px;
+        margin-top: var(--space-18);
         border-top: 1px solid var(--line);
         background: var(--surface);
       }
@@ -163,6 +163,14 @@ import { RouterLink } from '@angular/router';
           grid-template-columns: 1fr 1fr;
           gap: 32px;
         }
+      }
+      @media (prefers-color-scheme: dark) {
+        .ftr {
+          box-shadow: 0 -1px 0 rgba(255,255,255,0.05);
+        }
+      }
+      :root.dark .ftr {
+        box-shadow: 0 -1px 0 rgba(255,255,255,0.05);
       }
       @media (max-width: 520px) {
         .grid {

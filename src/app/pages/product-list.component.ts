@@ -78,7 +78,7 @@ import { applyCatalogQuery, SORT_OPTIONS, type SortKey } from '../shared/catalog
         </div>
 
         <div class="empty" *ngIf="!loading() && visible().length === 0" data-testid="empty-state">
-          <div class="empty-ico">🔍</div>
+          <div class="empty-ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
           <h3>No products found</h3>
           <p class="muted">
             Nothing matches your current filters. Try clearing the search or picking another
@@ -114,7 +114,7 @@ import { applyCatalogQuery, SORT_OPTIONS, type SortKey } from '../shared/catalog
         margin: 14px 0 22px;
       }
       .head h1 {
-        font-size: clamp(26px, 3vw, 36px);
+        font-size: var(--text-2xl);
         margin-bottom: 6px;
       }
       .sort .select {

@@ -67,12 +67,14 @@ import { formatCountdown } from './flash-sale-section.util';
             </div>
           } @else {
             <div class="grid-4">
-              @for (p of sale.products; track p.sku) {
-                <app-product-card
-                  [product]="p"
-                  (add)="add.emit($event)"
-                  (toggleWishlist)="toggleWishlist.emit($event)"
-                  (quickView)="quickView.emit($event)"></app-product-card>
+              @for (p of sale.products; track p.sku; let i = $index) {
+                <div class="card-stagger" style="--i: {{ i }}">
+                  <app-product-card
+                    [product]="p"
+                    (add)="add.emit($event)"
+                    (toggleWishlist)="toggleWishlist.emit($event)"
+                    (quickView)="quickView.emit($event)"></app-product-card>
+                </div>
               }
             </div>
           }
@@ -87,6 +89,16 @@ import { formatCountdown } from './flash-sale-section.util';
       border-radius: var(--r-lg);
       background: linear-gradient(180deg, var(--danger-soft) 0%, var(--surface) 40%);
       padding: 32px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .flash-wrap {
+        background: linear-gradient(180deg, rgba(251,113,133,0.08) 0%, var(--surface) 45%);
+        box-shadow: 0 0 20px rgba(251, 113, 133, 0.1);
+      }
+    }
+    :root.dark .flash-wrap {
+      background: linear-gradient(180deg, rgba(251,113,133,0.08) 0%, var(--surface) 45%);
+      box-shadow: 0 0 20px rgba(251, 113, 133, 0.1);
     }
     .flash-head {
       display: flex;
@@ -122,11 +134,6 @@ import { formatCountdown } from './flash-sale-section.util';
       width: 180px;
       border-radius: var(--r-md);
     }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
     .sk-card {
       aspect-ratio: 3 / 4;
     }
@@ -141,12 +148,6 @@ import { formatCountdown } from './flash-sale-section.util';
     .state-msg p {
       margin: 0;
       font-size: 15px;
-    }
-    @media (max-width: 980px) {
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 560px) {
-      .grid-4 { grid-template-columns: 1fr; }
     }
   `]
 })

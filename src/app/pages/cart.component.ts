@@ -38,7 +38,7 @@ const SHIPPING_FLAT = 9.9;
 
       <!-- Empty -->
       <div class="empty" *ngIf="lines().length === 0; else full" data-testid="cart-empty">
-        <div class="empty-ico">🛍️</div>
+        <div class="empty-ico"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
         <h2>Your cart is empty</h2>
         <p class="muted">Browse the catalogue and add something you love.</p>
         <a class="btn btn-lg" routerLink="/products">Start shopping</a>
@@ -126,7 +126,7 @@ const SHIPPING_FLAT = 9.9;
         padding: 28px 0 22px;
       }
       .head h1 {
-        font-size: clamp(26px, 3vw, 36px);
+        font-size: var(--text-2xl);
       }
       /* Empty */
       .empty {
@@ -175,7 +175,7 @@ const SHIPPING_FLAT = 9.9;
         display: grid;
         place-items: center;
         border-radius: var(--r-md);
-        background: linear-gradient(135deg, #efeee9, #e3e2dc);
+        background: var(--surface-2);
         color: var(--ink-3);
         font-weight: 700;
         font-size: 22px;
@@ -275,7 +275,7 @@ const SHIPPING_FLAT = 9.9;
       .ship-nudge .bar {
         height: 6px;
         border-radius: var(--r-pill);
-        background: #e3e2dc;
+        background: var(--line);
         margin-top: 10px;
         overflow: hidden;
       }

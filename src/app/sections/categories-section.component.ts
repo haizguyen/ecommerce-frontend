@@ -61,7 +61,7 @@ import type { Category } from '../data/models';
       .cats {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 14px;
+        gap: var(--space-3);
       }
       .cat-tile {
         position: relative;
@@ -120,7 +120,7 @@ import type { Category } from '../data/models';
           grid-template-columns: repeat(3, 1fr);
         }
       }
-      @media (max-width: 560px) {
+      @media (max-width: 720px) {
         .cats {
           grid-template-columns: repeat(2, 1fr);
         }

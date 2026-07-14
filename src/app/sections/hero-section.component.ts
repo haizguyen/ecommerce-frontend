@@ -56,10 +56,10 @@ import { RouterLink } from '@angular/router';
         grid-template-columns: 1.15fr 0.85fr;
         gap: 40px;
         align-items: center;
-        padding-block: 72px;
+        padding-block: var(--space-18);
       }
       .hero-copy h1 {
-        font-size: clamp(34px, 5vw, 58px);
+        font-size: var(--text-4xl);
         line-height: 1.03;
         margin: 14px 0 18px;
       }
@@ -123,6 +123,23 @@ import { RouterLink } from '@angular/router';
         box-shadow: var(--shadow-lg);
         backdrop-filter: blur(8px);
       }
+
+      @media (prefers-color-scheme: dark) {
+        .hero {
+          background: radial-gradient(120% 120% at 85% 10%, rgba(129,140,248,0.15) 0%, transparent 55%),
+            var(--surface);
+        }
+        .b1 { background: radial-gradient(circle at 30% 30%, #6366f1, #4338ca); opacity: 0.3; }
+        .b2 { background: radial-gradient(circle at 30% 30%, #f59e0b, #d97706); opacity: 0.2; }
+        .glass { background: color-mix(in srgb, var(--surface) 75%, transparent); border-color: var(--line); }
+      }
+      :root.dark .hero {
+        background: radial-gradient(120% 120% at 85% 10%, rgba(129,140,248,0.15) 0%, transparent 55%),
+          var(--surface);
+      }
+      :root.dark .b1 { background: radial-gradient(circle at 30% 30%, #6366f1, #4338ca); opacity: 0.3; }
+      :root.dark .b2 { background: radial-gradient(circle at 30% 30%, #f59e0b, #d97706); opacity: 0.2; }
+      :root.dark .glass { background: color-mix(in srgb, var(--surface) 75%, transparent); border-color: var(--line); }
 
       @media (max-width: 980px) {
         .hero-in {

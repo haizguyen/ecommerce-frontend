@@ -26,7 +26,7 @@ import { getInitials } from './testimonials-section.util';
             <h2>What our customers say</h2>
           </div>
         </div>
-        <div class="test-grid">
+        <div class="test-grid grid-3">
           @for (i of [1,2,3]; track i) {
             <div class="sk-test card">
               <div class="sk-test-row">
@@ -58,7 +58,7 @@ import { getInitials } from './testimonials-section.util';
             <h2>What our customers say</h2>
           </div>
         </div>
-        <div class="test-grid">
+        <div class="test-grid grid-3">
           @for (t of testimonials(); track t.id) {
             <div class="test-card card">
               <div class="test-head">
@@ -91,16 +91,11 @@ import { getInitials } from './testimonials-section.util';
     </section>
   `,
   styles: [`
-    .test-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
     .test-card {
-      padding: 20px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
     .test-head {
       display: flex;
@@ -124,10 +119,11 @@ import { getInitials } from './testimonials-section.util';
       font-size: 16px;
       font-weight: 700;
       color: var(--ink-3);
-      background: linear-gradient(135deg, #efeee9, #e3e2dc);
+      background: var(--surface-2);
     }
     .test-quote {
-      font-size: 15px;
+      font-size: var(--text-base);
+      line-height: var(--lh-relaxed);
       font-style: italic;
       color: var(--ink-2);
       display: -webkit-box;
@@ -181,9 +177,6 @@ import { getInitials } from './testimonials-section.util';
     .section-error p {
       margin: 0;
       font-size: 15px;
-    }
-    @media (max-width: 980px) {
-      .test-grid { grid-template-columns: 1fr; }
     }
   `]
 })

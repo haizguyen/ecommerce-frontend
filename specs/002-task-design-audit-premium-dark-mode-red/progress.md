@@ -53,7 +53,7 @@
 
 ## Story 3 — Replace Hardcoded Colors in Shared Components [DONE]
 
-**Commit:** *(pending — created after Story 2 merges)*
+**Commit:** `1634704` — `feat(002-story-3): Replace Hardcoded Colors in Shared Components`
 
 ### Accomplished
 - `src/app/shared/product-card.component.ts` — 7 hardcoded color replacements: placeholder gradient → `var(--surface-2)`, wish-btn background → `var(--surface)` + `opacity: 0.92`, wish-btn hover → `var(--surface-2)`, qv-btn background → `var(--surface)` + `opacity: 0.92`. Also 6 padding/sizing updates: body gap `8px`→`10px`, padding `16px 16px 18px`→`20px`, cat font → `var(--text-xs)`, name font `15px`→`16px`, price font `18px`→`20px`, hover `translateY(-3px)`→`-4px` + `0 0 0 1px var(--accent-soft)` ring

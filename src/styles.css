@@ -5,6 +5,8 @@
    (color, type, spacing, buttons, badges, form controls) lives here.
    ===================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,570;14..32,600;14..32,620;14..32,650;14..32,720&display=swap');
+
 :root {
   /* Neutrals — warm, near-black ink on soft paper */
   --bg: #f6f6f3;
@@ -53,6 +55,55 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --dur: 180ms;
 
+  /* Type scale — geometric progression ~1.25 (major third) */
+  --text-xs:   11px;
+  --text-sm:   12.5px;
+  --text-base: 16px;
+  --text-md:   18px;
+  --text-lg:   21px;
+  --text-xl:   26px;
+  --text-2xl:  34px;
+  --text-3xl:  44px;
+  --text-4xl:  56px;
+
+  /* Font weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 570;
+  --fw-bold: 650;
+  --fw-heading: 620;
+  --fw-brand: 720;
+
+  /* Line heights */
+  --lh-tight: 1.05;
+  --lh-snug:  1.2;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.7;
+
+  /* Letter spacing */
+  --ls-tight: -0.03em;
+  --ls-normal: 0;
+  --ls-wide: 0.08em;
+  --ls-display: -0.04em;
+
+  /* Spacing scale — 4px increments */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-18: 72px;
+  --space-24: 96px;
+
+  /* Skeleton — light-mode defaults */
+  --skeleton-bg: #ecebe6;
+  --skeleton-shine: rgba(255, 255, 255, 0.65);
+
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
 
@@ -60,6 +111,80 @@
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ── Dark‑mode colour tokens ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          #0a0a0b;
+    --surface:     #151516;
+    --surface-2:   #1c1c1e;
+    --surface-3:   #242426;
+
+    --ink:         #f5f5f4;
+    --ink-2:       #a1a1a6;
+    --ink-3:       #636366;
+
+    --line:        #2c2c2e;
+    --line-strong: #38383a;
+
+    --accent:       #818cf8;
+    --accent-strong:#93a0fc;
+    --accent-soft:  rgba(129, 140, 248, 0.12);
+    --on-accent:    #0a0a0b;
+
+    --success:      #34d399;
+    --success-soft: rgba(52, 211, 153, 0.12);
+    --warn:         #fbbf24;
+    --warn-soft:    rgba(251, 191, 36, 0.12);
+    --danger:       #f87171;
+    --danger-soft:  rgba(248, 113, 113, 0.12);
+    --sale:         #fb7185;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.5);
+
+    --skeleton-bg: #1c1c1e;
+    --skeleton-shine: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* Manual dark‑mode toggle via .dark class on <html> */
+:root.dark {
+  --bg:          #0a0a0b;
+  --surface:     #151516;
+  --surface-2:   #1c1c1e;
+  --surface-3:   #242426;
+
+  --ink:         #f5f5f4;
+  --ink-2:       #a1a1a6;
+  --ink-3:       #636366;
+
+  --line:        #2c2c2e;
+  --line-strong: #38383a;
+
+  --accent:       #818cf8;
+  --accent-strong:#93a0fc;
+  --accent-soft:  rgba(129, 140, 248, 0.12);
+  --on-accent:    #0a0a0b;
+
+  --success:      #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+  --warn:         #fbbf24;
+  --warn-soft:    rgba(251, 191, 36, 0.12);
+  --danger:       #f87171;
+  --danger-soft:  rgba(248, 113, 113, 0.12);
+  --sale:         #fb7185;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.5);
+
+  --skeleton-bg: #1c1c1e;
+  --skeleton-shine: rgba(255, 255, 255, 0.06);
 }
 
 *,
@@ -330,6 +455,22 @@ button {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* ---------- Grid utilities ---------- */
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+
+@media (max-width: 980px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
 /* ---------- Utility ---------- */
 .sr-only {
   position: absolute;
@@ -347,7 +488,7 @@ button {
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: #ecebe6;
+  background: var(--skeleton-bg);
   border-radius: var(--r-md);
 }
 .skeleton::after {
@@ -358,7 +499,7 @@ button {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.65),
+    var(--skeleton-shine),
     transparent
   );
   animation: shimmer 1.4s infinite;

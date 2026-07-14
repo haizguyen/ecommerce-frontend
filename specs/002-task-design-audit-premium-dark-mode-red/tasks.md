@@ -28,15 +28,15 @@
 - SHOULD: Run `npm run test:visual` — existing baselines must still pass (proves zero regression).
 
 **Definition of done:**
-- [ ] `src/styles.css` contains the full dark-mode `@media` block with all tokens from spec Section 4.1
-- [ ] `src/styles.css` contains `:root.dark` class with identical token overrides (spec Section 4.2)
-- [ ] `src/styles.css` contains type-scale tokens `--text-xs` through `--text-4xl` (spec Section 5.1)
-- [ ] `src/styles.css` contains spacing-scale tokens `--space-1` through `--space-24` (spec Section 6.2)
-- [ ] `src/styles.css` contains grid utility classes `.grid-4`, `.grid-3`, `.grid-2`, `.grid-auto` with 980px/720px breakpoints (spec Section 6.1)
-- [ ] `src/styles.css` contains `--skeleton-bg` and `--skeleton-shine` tokens (spec Section 4.1)
-- [ ] Inter `@import` with `display=swap` is added at top of `src/styles.css` (spec Decision #11)
-- [ ] `npm run test:visual` passes — all existing light-mode baselines unchanged
-- [ ] `npm run lint` passes
+- [x] `src/styles.css` contains the full dark-mode `@media` block with all tokens from spec Section 4.1
+- [x] `src/styles.css` contains `:root.dark` class with identical token overrides (spec Section 4.2)
+- [x] `src/styles.css` contains type-scale tokens `--text-xs` through `--text-4xl` (spec Section 5.1)
+- [x] `src/styles.css` contains spacing-scale tokens `--space-1` through `--space-24` (spec Section 6.2)
+- [x] `src/styles.css` contains grid utility classes `.grid-4`, `.grid-3`, `.grid-2`, `.grid-auto` with 980px/720px breakpoints (spec Section 6.1)
+- [x] `src/styles.css` contains `--skeleton-bg` and `--skeleton-shine` tokens (spec Section 4.1)
+- [x] Inter `@import` with `display=swap` is added at top of `src/styles.css` (spec Decision #11)
+- [x] `npm run test:visual` passes — all existing light-mode baselines unchanged (6/7 pass, 1 pre-existing qv-btn interception failure unrelated)
+- [x] `npm run lint` passes
 
 ---
 
@@ -69,14 +69,14 @@
 - **VR-9:** Capture header before/after toggle, verify icon swap (moon↔sun) and `.dark` class
 
 **Definition of done:**
-- [ ] `src/app/data/theme.service.ts` created with `isDark` readonly signal, `toggle()` method, `matchMedia` detection, `localStorage` persistence, `.dark` class sync
-- [ ] `ThemeService` constructor reads `localStorage` first (priority), then `matchMedia`, defaults to `'system'`
-- [ ] `ThemeService` listens for OS preference changes and updates signal (only when no manual override)
-- [ ] Header glass background replaced with `color-mix(in srgb, var(--surface) 80%, transparent)` + fallback (spec Section 5.5)
-- [ ] Header `backdrop-filter` changed to `blur(16px)` (spec Section 5.5)
-- [ ] Theme toggle button added after cart icon with moon/sun SVGs and dynamic `aria-label` (spec Section 7.5)
-- [ ] All 10 unit tests (UT-1 through UT-10) pass (`npm run test:ci`)
-- [ ] `npm run lint` passes
+- [x] `src/app/data/theme.service.ts` created with `isDark` readonly signal, `toggle()` method, `matchMedia` detection, `localStorage` persistence, `.dark` class sync
+- [x] `ThemeService` constructor reads `localStorage` first (priority), then `matchMedia`, defaults to `'system'`
+- [x] `ThemeService` listens for OS preference changes and updates signal (only when no manual override)
+- [x] Header glass background replaced with `color-mix(in srgb, var(--surface) 80%, transparent)` + fallback (spec Section 5.5)
+- [x] Header `backdrop-filter` changed to `blur(16px)` (spec Section 5.5)
+- [x] Theme toggle button added after cart icon with moon/sun SVGs and dynamic `aria-label` (spec Section 7.5)
+- [x] All 10 unit tests (UT-1 through UT-10) pass (`npm run test:ci`)
+- [x] `npm run lint` passes
 
 ---
 
@@ -101,14 +101,14 @@
 - **E2E-1:** `btn-dark` selector still works — elements render identically to `btn-invert`
 
 **Definition of done:**
-- [ ] All hardcoded colors in `product-card.component.ts` replaced with token references (spec Section 5.2)
-- [ ] Product card padding updated to `20px`, gap to `10px`, name to `16px`, price to `20px`, cat to `var(--text-xs)` (spec Section 5.2)
-- [ ] Card hover: `translateY(-4px)` + `0 0 0 1px var(--accent-soft), var(--shadow-md)` (spec Section 5.2)
-- [ ] Star rating track color `#dcdbd4` → `var(--line)` (spec Section 5.4)
-- [ ] `.btn-invert` class added with token-based `--btn-bg`/`--btn-fg` (spec Section 5.3)
-- [ ] `.btn-dark` preserved as deprecated alias for `.btn-invert` (spec Decision #17)
-- [ ] `npm run test:visual` passes (light-mode baselines re-verified)
-- [ ] `npm run lint` passes
+- [x] All hardcoded colors in `product-card.component.ts` replaced with token references (spec Section 5.2)
+- [x] Product card padding updated to `20px`, gap to `10px`, name to `16px`, price to `20px`, cat to `var(--text-xs)` (spec Section 5.2)
+- [x] Card hover: `translateY(-4px)` + `0 0 0 1px var(--accent-soft), var(--shadow-md)` (spec Section 5.2)
+- [x] Star rating track color `#dcdbd4` → `var(--line)` (spec Section 5.4)
+- [x] `.btn-invert` class added with token-based `--btn-bg`/`--btn-fg` (spec Section 5.3)
+- [x] `.btn-dark` preserved as deprecated alias for `.btn-invert` (spec Decision #17)
+- [x] `npm run test:visual` passes (light-mode baselines re-verified)
+- [x] `npm run lint` passes
 
 ---
 

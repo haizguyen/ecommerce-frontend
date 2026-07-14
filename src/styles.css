@@ -352,12 +352,15 @@ button {
   box-shadow: none;
 }
 
+.btn-invert,
 .btn-dark {
   --btn-bg: var(--ink);
-  --btn-fg: #fff;
+  --btn-fg: var(--bg);
 }
+.btn-invert:hover,
 .btn-dark:hover {
-  background: #000;
+  background: var(--ink);
+  box-shadow: none;
 }
 
 /* ---------- Badges & chips ---------- */

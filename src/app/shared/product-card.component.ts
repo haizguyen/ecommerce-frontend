@@ -133,8 +133,8 @@ import { StarRatingComponent } from './star-rating.component';
           border-color var(--dur) var(--ease);
       }
       .pc:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+        box-shadow: 0 0 0 1px var(--accent-soft), var(--shadow-md);
         border-color: var(--line-strong);
       }
       .media {
@@ -162,7 +162,7 @@ import { StarRatingComponent } from './star-rating.component';
         height: 100%;
         display: grid;
         place-items: center;
-        background: linear-gradient(135deg, #efeee9, #e3e2dc);
+        background: var(--surface-2);
         color: var(--ink-3);
         font-weight: 700;
         font-size: 34px;
@@ -190,7 +190,8 @@ import { StarRatingComponent } from './star-rating.component';
         height: 36px;
         border: none;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.85);
+        background: var(--surface);
+        opacity: 0.92;
         backdrop-filter: blur(4px);
         cursor: pointer;
         color: var(--ink-2);
@@ -201,7 +202,7 @@ import { StarRatingComponent } from './star-rating.component';
       .wish-btn:hover {
         color: var(--danger);
         transform: scale(1.12);
-        background: #fff;
+        background: var(--surface-2);
       }
       .qv-btn {
         position: absolute;
@@ -212,7 +213,8 @@ import { StarRatingComponent } from './star-rating.component';
         padding: 10px 22px;
         border: none;
         border-radius: var(--r-lg);
-        background: rgba(255, 255, 255, 0.92);
+        background: var(--surface);
+        opacity: 0.92;
         backdrop-filter: blur(6px);
         font-size: 14px;
         font-weight: 600;
@@ -237,18 +239,18 @@ import { StarRatingComponent } from './star-rating.component';
       .body {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding: 16px 16px 18px;
+        gap: 10px;
+        padding: 20px;
       }
       .cat {
-        font-size: 11.5px;
+        font-size: var(--text-xs);
         font-weight: 600;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--ink-3);
       }
       .name {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 600;
         line-height: 1.35;
         letter-spacing: -0.01em;
@@ -269,7 +271,7 @@ import { StarRatingComponent } from './star-rating.component';
         margin-top: 4px;
       }
       .price {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 680;
         letter-spacing: -0.02em;
         display: flex;

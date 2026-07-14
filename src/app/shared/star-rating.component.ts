@@ -33,7 +33,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
         letter-spacing: 1px;
       }
       .track {
-        color: #dcdbd4;
+        color: var(--line);
       }
       .fill {
         position: absolute;

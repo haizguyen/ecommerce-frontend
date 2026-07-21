@@ -13,8 +13,20 @@ import type { Order, PlaceOrderResponse } from './models';
 export class OrderService {
   private readonly http = inject(HttpClient);
 
-  placeOrder(sku: string, quantity: number): Observable<PlaceOrderResponse> {
-    return this.http.post<PlaceOrderResponse>('/api/orders', { sku, quantity });
+  placeOrder(
+    sku: string,
+    quantity: number,
+    name: string,
+    unitPrice: number,
+    currency: string
+  ): Observable<PlaceOrderResponse> {
+    return this.http.post<PlaceOrderResponse>('/api/orders', {
+      sku,
+      quantity,
+      name,
+      unitPrice,
+      currency
+    });
   }
 
   getOrders(): Observable<Order[]> {

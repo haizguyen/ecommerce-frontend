@@ -89,7 +89,13 @@ export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
 
   // --- Place order: POST /api/orders ---
   if (method === 'POST' && path === '/api/orders') {
-    const body = (req.body ?? {}) as { sku?: string; quantity?: number };
+    const body = (req.body ?? {}) as {
+      sku?: string;
+      quantity?: number;
+      name?: string;
+      unitPrice?: number;
+      currency?: string;
+    };
     const sku = body.sku ?? '';
     const quantity = Number(body.quantity ?? 0);
     const current = stockStore.get(sku);

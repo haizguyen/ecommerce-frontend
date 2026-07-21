@@ -527,7 +527,7 @@ export class ProductDetailComponent {
     this.placing.set(true);
     this.status.set('Placing order…');
 
-    this.orders.placeOrder(p.sku, qty).subscribe({
+    this.orders.placeOrder(p.sku, qty, p.name, p.price, p.currency).subscribe({
       next: () => {
         this.status.set('Order placed — waiting for inventory to update…');
         this.pollUntilDecremented(p.sku, before, 30);
